@@ -213,7 +213,7 @@ const config = {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": "mysql://root:root@localhost:3307/mydb"
+        "value": "mysql://root:jTNMATVzZVFjbzqHgaZiNBXtfpzshcui@shuttle.proxy.rlwy.net:41446/railway"
       }
     }
   },
