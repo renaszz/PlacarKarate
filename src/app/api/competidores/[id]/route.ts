@@ -1,23 +1,31 @@
 import { prisma } from '@/lib/prisma';
 import { NextResponse } from 'next/server';
 
-export async function PUT(req: Request, { params }: { params: { id: string } }) {
-  const data = await req.json();
+export async function PUT(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const { id } = await params;
+  const body = await request.json();
 
   const atualizado = await prisma.competidor.update({
-    where: { id: params.id },
+    where: { id },
     data: {
-      nome: data.nome,
-      academia: data.academia,
-      cidade: data.cidade,
-      estado: data.estado,
+      nome: body.nome,
+      academia: body.academia,
+      cidade: body.cidade,
+      estado: body.estado,
     },
   });
 
   return NextResponse.json(atualizado);
 }
 
-export async function DELETE(_req: Request, { params }: { params: { id: string } }) {
-  await prisma.competidor.delete({ where: { id: params.id } });
+export async function DELETE(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const { id } = await params;
+  await prisma.competidor.delete({ where: { id } });
   return NextResponse.json({ success: true });
 }

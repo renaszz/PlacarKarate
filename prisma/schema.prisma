@@ -38,7 +38,7 @@ model Competidor {
 model Partida {
   id           String         @id @default(cuid())
   tipo         TipoPartida
-  data         String
+  data         DateTime       @default(now())
   resultado    String
   participantes Participacao[]
   createdAt    DateTime       @default(now())

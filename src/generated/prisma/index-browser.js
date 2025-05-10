@@ -177,7 +177,6 @@ exports.Prisma.CompetidorOrderByRelevanceFieldEnum = {
 
 exports.Prisma.PartidaOrderByRelevanceFieldEnum = {
   id: 'id',
-  data: 'data',
   resultado: 'resultado'
 };
 

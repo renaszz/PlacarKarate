@@ -3120,7 +3120,7 @@ export namespace Prisma {
   export type PartidaMinAggregateOutputType = {
     id: string | null
     tipo: $Enums.TipoPartida | null
-    data: string | null
+    data: Date | null
     resultado: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -3129,7 +3129,7 @@ export namespace Prisma {
   export type PartidaMaxAggregateOutputType = {
     id: string | null
     tipo: $Enums.TipoPartida | null
-    data: string | null
+    data: Date | null
     resultado: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -3249,7 +3249,7 @@ export namespace Prisma {
   export type PartidaGroupByOutputType = {
     id: string
     tipo: $Enums.TipoPartida
-    data: string
+    data: Date
     resultado: string
     createdAt: Date
     updatedAt: Date
@@ -3308,7 +3308,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       tipo: $Enums.TipoPartida
-      data: string
+      data: Date
       resultado: string
       createdAt: Date
       updatedAt: Date
@@ -3684,7 +3684,7 @@ export namespace Prisma {
   interface PartidaFieldRefs {
     readonly id: FieldRef<"Partida", 'String'>
     readonly tipo: FieldRef<"Partida", 'TipoPartida'>
-    readonly data: FieldRef<"Partida", 'String'>
+    readonly data: FieldRef<"Partida", 'DateTime'>
     readonly resultado: FieldRef<"Partida", 'String'>
     readonly createdAt: FieldRef<"Partida", 'DateTime'>
     readonly updatedAt: FieldRef<"Partida", 'DateTime'>
@@ -5087,7 +5087,6 @@ export namespace Prisma {
 
   export const PartidaOrderByRelevanceFieldEnum: {
     id: 'id',
-    data: 'data',
     resultado: 'resultado'
   };
 
@@ -5284,7 +5283,7 @@ export namespace Prisma {
     NOT?: PartidaWhereInput | PartidaWhereInput[]
     id?: StringFilter<"Partida"> | string
     tipo?: EnumTipoPartidaFilter<"Partida"> | $Enums.TipoPartida
-    data?: StringFilter<"Partida"> | string
+    data?: DateTimeFilter<"Partida"> | Date | string
     resultado?: StringFilter<"Partida"> | string
     createdAt?: DateTimeFilter<"Partida"> | Date | string
     updatedAt?: DateTimeFilter<"Partida"> | Date | string
@@ -5308,7 +5307,7 @@ export namespace Prisma {
     OR?: PartidaWhereInput[]
     NOT?: PartidaWhereInput | PartidaWhereInput[]
     tipo?: EnumTipoPartidaFilter<"Partida"> | $Enums.TipoPartida
-    data?: StringFilter<"Partida"> | string
+    data?: DateTimeFilter<"Partida"> | Date | string
     resultado?: StringFilter<"Partida"> | string
     createdAt?: DateTimeFilter<"Partida"> | Date | string
     updatedAt?: DateTimeFilter<"Partida"> | Date | string
@@ -5333,7 +5332,7 @@ export namespace Prisma {
     NOT?: PartidaScalarWhereWithAggregatesInput | PartidaScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Partida"> | string
     tipo?: EnumTipoPartidaWithAggregatesFilter<"Partida"> | $Enums.TipoPartida
-    data?: StringWithAggregatesFilter<"Partida"> | string
+    data?: DateTimeWithAggregatesFilter<"Partida"> | Date | string
     resultado?: StringWithAggregatesFilter<"Partida"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Partida"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Partida"> | Date | string
@@ -5540,7 +5539,7 @@ export namespace Prisma {
   export type PartidaCreateInput = {
     id?: string
     tipo: $Enums.TipoPartida
-    data: string
+    data?: Date | string
     resultado: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -5550,7 +5549,7 @@ export namespace Prisma {
   export type PartidaUncheckedCreateInput = {
     id?: string
     tipo: $Enums.TipoPartida
-    data: string
+    data?: Date | string
     resultado: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -5560,7 +5559,7 @@ export namespace Prisma {
   export type PartidaUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     tipo?: EnumTipoPartidaFieldUpdateOperationsInput | $Enums.TipoPartida
-    data?: StringFieldUpdateOperationsInput | string
+    data?: DateTimeFieldUpdateOperationsInput | Date | string
     resultado?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5570,7 +5569,7 @@ export namespace Prisma {
   export type PartidaUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     tipo?: EnumTipoPartidaFieldUpdateOperationsInput | $Enums.TipoPartida
-    data?: StringFieldUpdateOperationsInput | string
+    data?: DateTimeFieldUpdateOperationsInput | Date | string
     resultado?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5580,7 +5579,7 @@ export namespace Prisma {
   export type PartidaCreateManyInput = {
     id?: string
     tipo: $Enums.TipoPartida
-    data: string
+    data?: Date | string
     resultado: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -5589,7 +5588,7 @@ export namespace Prisma {
   export type PartidaUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     tipo?: EnumTipoPartidaFieldUpdateOperationsInput | $Enums.TipoPartida
-    data?: StringFieldUpdateOperationsInput | string
+    data?: DateTimeFieldUpdateOperationsInput | Date | string
     resultado?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5598,7 +5597,7 @@ export namespace Prisma {
   export type PartidaUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     tipo?: EnumTipoPartidaFieldUpdateOperationsInput | $Enums.TipoPartida
-    data?: StringFieldUpdateOperationsInput | string
+    data?: DateTimeFieldUpdateOperationsInput | Date | string
     resultado?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6249,7 +6248,7 @@ export namespace Prisma {
   export type PartidaCreateWithoutParticipantesInput = {
     id?: string
     tipo: $Enums.TipoPartida
-    data: string
+    data?: Date | string
     resultado: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -6258,7 +6257,7 @@ export namespace Prisma {
   export type PartidaUncheckedCreateWithoutParticipantesInput = {
     id?: string
     tipo: $Enums.TipoPartida
-    data: string
+    data?: Date | string
     resultado: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -6312,7 +6311,7 @@ export namespace Prisma {
   export type PartidaUpdateWithoutParticipantesInput = {
     id?: StringFieldUpdateOperationsInput | string
     tipo?: EnumTipoPartidaFieldUpdateOperationsInput | $Enums.TipoPartida
-    data?: StringFieldUpdateOperationsInput | string
+    data?: DateTimeFieldUpdateOperationsInput | Date | string
     resultado?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6321,7 +6320,7 @@ export namespace Prisma {
   export type PartidaUncheckedUpdateWithoutParticipantesInput = {
     id?: StringFieldUpdateOperationsInput | string
     tipo?: EnumTipoPartidaFieldUpdateOperationsInput | $Enums.TipoPartida
-    data?: StringFieldUpdateOperationsInput | string
+    data?: DateTimeFieldUpdateOperationsInput | Date | string
     resultado?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
