@@ -72,7 +72,7 @@ export default function Kata() {
     return (
       <div className="h-screen w-screen bg-gray-950 flex items-center justify-center">
         <Card className="p-6 bg-gray-900 rounded-lg shadow-md w-[400px] border-1 border-gray-700">
-          <Link href="/">
+          <Link href="/dashboard">
                 <ChevronLeft color="#fff" className="cursor-pointer fill"/>
           </Link>
           <CardContent className="flex flex-col gap-4">
