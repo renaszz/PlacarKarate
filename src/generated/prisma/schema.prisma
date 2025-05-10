@@ -17,8 +17,8 @@ datasource db {
 model Competidor {
   id            String         @id @default(cuid())
   nome          String
-  cidade        String?
-  estado        String?
+  cidade        String
+  estado        String
   academia      String
   vitorias      Int            @default(0)
   medalhas      Int            @default(0)
@@ -30,8 +30,8 @@ model Competidor {
 model Partida {
   id            String         @id @default(cuid())
   tipo          TipoPartida
-  data          DateTime
-  resultado     String?
+  data          String
+  resultado     String
   participantes Participacao[]
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
@@ -41,9 +41,9 @@ model Participacao {
   id           String     @id @default(cuid())
   partidaId    String
   competidorId String
-  resultado    String?
-  partida      Partida    @relation(fields: [partidaId], references: [id])
-  competidor   Competidor @relation(fields: [competidorId], references: [id])
+  resultado    String
+  partida      Partida    @relation(fields: [partidaId], references: [id], onDelete: Cascade)
+  competidor   Competidor @relation(fields: [competidorId], references: [id], onDelete: Cascade)
 }
 
 enum TipoPartida {
