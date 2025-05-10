@@ -15,7 +15,7 @@ interface Competidor {
   nome: string;
 }
 
-export default function Home() {
+export default function Placar() {
   const [competidores, setCompetidores] = useState<Competidor[]>([]);
   const [idCompetidor1, setIdCompetidor1] = useState("");
   const [idCompetidor2, setIdCompetidor2] = useState("");
@@ -60,7 +60,7 @@ export default function Home() {
     return (
       <div className="h-screen w-screen bg-gray-950 flex items-center justify-center">
         <Card className="p-6 bg-gray-900 rounded-lg shadow-md w-[400px] border-1 border-gray-700">
-          <Link href="/">
+          <Link href="/dashboard">
                 <ChevronLeft color="#fff" className="cursor-pointer fill"/>
           </Link>
           <CardContent className="flex flex-col gap-4">
@@ -136,7 +136,7 @@ export default function Home() {
       <div className="flex-[1.5] bg-gray-900 rounded-md border-none flex justify-between items-end">
         <Card className="w-120 h-28 bg-gray-950 border-none m-4 rounded-md p-0">
           <CardContent className="grid grid-cols-2 grid-rows-1 w-full h-full p-0">
-            <Link href="/">
+            <Link href="/dashboard">
               <Button className="bg-gray-950 w-full h-full rounded-none text-2xl hover:border-white hover:border hover:bg-gray-950 cursor-pointer">
                 SAIR
               </Button>

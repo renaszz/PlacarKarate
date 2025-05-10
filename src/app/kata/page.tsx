@@ -65,7 +65,7 @@ export default function Kata() {
       }),
     });
     toast.success("Partida de kata registrada!");
-    setTimeout(() => router.push("/"), 1500);
+    setTimeout(() => router.push("/dashboard"), 1500);
   }
 
   if (!started) {
@@ -144,7 +144,7 @@ export default function Kata() {
       <div className="flex-[1.5] bg-gray-900 rounded-md border-none flex justify-between items-end">
         <Card className="w-128 h-28 bg-gray-950 border-none m-4 rounded-md p-0">
           <CardContent className="w-full h-full p-0 flex">
-            <Link href="/" className="w-1/2 h-full">
+            <Link href="/dashboard" className="w-1/2 h-full">
               <Button className="bg-gray-950 w-full h-full rounded-none text-2xl hover:border-white hover:border hover:bg-gray-950 cursor-pointer">
                 SAIR
               </Button>

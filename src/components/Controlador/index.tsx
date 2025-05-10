@@ -40,7 +40,7 @@ export function Controlador({
       }),
     });
     toast.success(`Resultado registrado: ${tipoResultado}`);
-    setTimeout(() => router.push("/"), 1500);
+    setTimeout(() => router.push("/dashboard"), 1500);
   }
 
   return (
