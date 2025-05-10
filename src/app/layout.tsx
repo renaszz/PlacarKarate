@@ -1,3 +1,4 @@
+import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
 export default function RootLayout({
@@ -10,6 +11,7 @@ export default function RootLayout({
       <body
         className={`antialiased font-bebas`}
       >
+        <Toaster />
         {children}
       </body>
     </html>

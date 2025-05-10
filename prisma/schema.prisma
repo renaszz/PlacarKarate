@@ -10,53 +10,44 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
-model Academia {
-  id         String       @id @default(cuid())
-  nome       String
-  cidade     String?
-  estado     String?
-  competidores Competidor[] // Relação 1:N
-  createdAt  DateTime     @default(now())
-  updatedAt  DateTime     @updatedAt
-}
-
 model Competidor {
-  id          String      @id @default(cuid())
-  nome        String
-  academiaId  String
-  academia    Academia    @relation(fields: [academiaId], references: [id])
-  vitorias    Int         @default(0)
-  medalhas    Int         @default(0)
-  participacoes Participacao[] // Relação N:N com Partida
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  id            String   @id @default(cuid())
+  nome          String
+  cidade        String
+  estado        String
+  academia      String
+  vitorias      Int      @default(0)
+  medalhas      Int      @default(0)
+  participacoes Participacao[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }
 
 model Partida {
   id           String         @id @default(cuid())
-  tipo         TipoPartida    // Kata ou Confronto
-  data         DateTime
-  resultado    String?
-  participantes Participacao[] // Relação N:N com Competidor
+  tipo         TipoPartida
+  data         String
+  resultado    String
+  participantes Participacao[]
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
 }
 
 model Participacao {
-  id            String      @id @default(cuid())
+  id            String     @id @default(cuid())
   partidaId     String
   competidorId  String
-  resultado     String?     // Ex: 'vencedor', 'perdedor', 'empate', etc.
-  
-  partida       Partida     @relation(fields: [partidaId], references: [id])
-  competidor    Competidor  @relation(fields: [competidorId], references: [id])
+  resultado     String
+  partida       Partida    @relation(fields: [partidaId], references: [id], onDelete: Cascade)
+  competidor    Competidor @relation(fields: [competidorId], references: [id], onDelete: Cascade)
 }
 
 enum TipoPartida {
   KATA
   CONFRONTO
 }
+
