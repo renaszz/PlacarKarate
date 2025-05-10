@@ -32,7 +32,6 @@ interface CompetidorForm {
   academia: string;
   cidade: string;
   estado: string;
-  vitorias: number?;
 }
 
 export default function ListaCompetidores({ initialData }: { initialData: Competidor[] }) {
@@ -144,14 +143,6 @@ export default function ListaCompetidores({ initialData }: { initialData: Compet
             <Input className="placeholder:text-white border-1 border-gray-700" placeholder="Academia" {...register('academia', { required: true })} />
             <Input className="placeholder:text-white border-1 border-gray-700" placeholder="Cidade" {...register('cidade', { required: true })} />
             <Input className="placeholder:text-white border-1 border-gray-700" placeholder="Estado" {...register('estado', { required: true })} />
-            {editing && (
-              <Input
-                type="number"
-                  className="placeholder:text-white border-1 border-gray-700"
-                  placeholder="Vitórias"
-                  {...register('vitorias', { valueAsNumber: true, min: 0 })}
-              />
-            )}
             <DialogFooter>
               <Button className="cursor-pointer bg-gray-900 border-1 border-gray-700" type="submit">{editing ? 'Atualizar' : 'Adicionar'}</Button>
             </DialogFooter>
