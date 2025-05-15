@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 export default function Home() {
   return (
-    <div className="w-full min-h-screen flex flex-col justify-center bg-gray-950 p-20 space-y-12 gap-8">
+    <div className="w-full min-h-screen flex flex-col justify-center bg-gray-950 p-20 space-y-12 gap-2">
       <div className="space-y-6 justify-center">
         <div className='flex justify-center'>  
           <Label className="text-gray-400 text-6xl font-semibold">PAINEL DE CONTROLE</Label>
