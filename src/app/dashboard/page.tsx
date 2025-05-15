@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <div className="w-full min-h-screen flex flex-col bg-gray-950 p-20 space-y-12 gap-8">
       <div className="space-y-6 justify-center">
-        <div className='flex justify-center mb-8'>  
+        <div className='flex justify-center'>  
           <Label className="text-gray-400 text-6xl font-semibold">PAINEL DE CONTROLE</Label>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -23,7 +23,7 @@ export default function Home() {
         </div>
       </div>
       <div className="space-y-6">
-        <div className='flex justify-center mb-8'>
+        <div className='flex justify-center'>
           <Label className="text-gray-400 text-6xl font-semibold">MODOS DE COMBATE</Label>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
