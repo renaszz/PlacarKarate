@@ -70,10 +70,10 @@ export default function Kata() {
 
   if (!started) {
     return (
-      <div className="h-screen w-screen bg-gray-950 flex items-center justify-center">
-        <Card className="p-6 bg-gray-900 rounded-lg shadow-md w-[400px] border-1 border-gray-700">
+      <div className="min-h-screen w-full bg-gray-950 flex items-center justify-center p-4">
+        <Card className="p-6 bg-gray-900 rounded-lg shadow-md w-full max-w-md border border-gray-700">
           <Link href="/dashboard">
-                <ChevronLeft color="#fff" className="cursor-pointer fill"/>
+            <ChevronLeft color="#fff" className="cursor-pointer" />
           </Link>
           <CardContent className="flex flex-col gap-4">
             <Label className="text-white text-xl">Competidor:</Label>
@@ -111,17 +111,18 @@ export default function Kata() {
   }
 
   return (
-    <div className="flex flex-col h-screen bg-gray-950 p-2 gap-4">
-      <div className="grid grid-cols-2 mb-12 mt-8">
-        <div className="flex flex-col gap-8 ml-80">
+  <div className="flex flex-col min-h-screen bg-gray-950 p-4">
+    <div className="flex-grow">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-20 mb-12 px-60">
+        <div className="flex flex-col gap-8 w-full">
           {[1, 2, 3].map((num, idx) => (
-            <div key={num} className="flex items-center gap-16">
-              <Label className="text-white text-8xl font-bold">JUIZ {num}</Label>
+            <div key={num} className="flex items-center gap-6 flex-wrap">
+              <Label className="text-white text-3xl md:text-6xl font-bold whitespace-nowrap">JUIZ {num}</Label>
               <Input
                 type="number"
                 min={0}
                 max={10}
-                className="w-30 h-20 bg-black rounded text-white font-bold !text-6xl !leading-none text-center appearance-none placeholder:text-white"
+                className="w-24 md:w-32 h-16 md:h-20 bg-black rounded text-white font-bold text-4xl md:text-6xl text-center appearance-none placeholder:text-white"
                 value={notas[idx] || ''}
                 onChange={e => {
                   const valor = Number(e.target.value);
@@ -136,13 +137,14 @@ export default function Kata() {
             </div>
           ))}
         </div>
-        <div className="flex flex-col items-center justify-center mr-80">
-          <UserCircleIcon size={350} className="text-gray-600" />
-          <Label className="mt-4 bg-transparent border-none text-white text-7xl font-bold text-center">{nome1}</Label>
+        <div className="flex flex-col items-center justify-center w-full">
+          <UserCircleIcon size={220} className="text-gray-600" />
+          <Label className="mt-4 text-white text-4xl md:text-6xl font-bold text-center">{nome1}</Label>
         </div>
       </div>
-      <div className="flex-[1.5] bg-gray-900 rounded-md border-none flex justify-between items-end">
-        <Card className="w-128 h-28 bg-gray-950 border-none m-4 rounded-md p-0">
+    </div>
+    <div className="bg-gray-900 rounded-md border-none flex flex-col lg:flex-row justify-between items-end p-4 gap-4">
+       <Card className="w-full lg:w-1/3 h-24 bg-gray-950 border-none m-4 rounded-md p-0">
           <CardContent className="w-full h-full p-0 flex">
             <Link href="/dashboard" className="w-1/2 h-full">
               <Button className="bg-gray-950 w-full h-full rounded-none text-2xl hover:border-white hover:border hover:bg-gray-950 cursor-pointer">
@@ -157,14 +159,14 @@ export default function Kata() {
             </Button>
           </CardContent>
         </Card>
-        <div className="flex gap-20">
-          <div className="flex flex-col items-center h-full w-20 py-4">
-            <Label className="text-gray-400 text-2xl text-center">PONTUAÇÃO FINAL</Label>
-            <Label className="text-white text-9xl font-bold">{media}</Label>
-          </div>
-          <Timer initialTime={time} />
+      <div className="flex gap-6 flex-wrap justify-center items-center">
+        <div className="flex flex-col items-center">
+          <Label className="text-gray-400 text-lg md:text-2xl text-center">PONTUAÇÃO FINAL</Label>
+          <Label className="text-white text-6xl md:text-8xl font-bold">{media}</Label>
         </div>
+        <Timer initialTime={time} />
       </div>
     </div>
-  );
+  </div>
+);
 }
