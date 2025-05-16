@@ -56,7 +56,7 @@ export default function ListaCompetidores({ initialData }: { initialData: Compet
   const [editing, setEditing] = useState<Competidor | null>(null);
   const [sorting, setSorting] = useState<SortingState>([]);
 
-  const openModal = (competidor?: Competidor) => {
+  function openModal(competidor?: Competidor) {
     if (competidor) {
       setEditing(competidor);
       reset({
@@ -71,13 +71,13 @@ export default function ListaCompetidores({ initialData }: { initialData: Compet
       reset();
     }
     setIsOpen(true);
-  };
+  }
 
-  const handleDelete = async (id: string) => {
+  async function handleDelete(id: string) {
     await fetch(`/api/competidores/${id}`, { method: 'DELETE' });
     setList(prev => prev.filter(c => c.id !== id));
     toast.success('Competidor excluído!');
-  };
+  }
 
   const onSubmit: SubmitHandler<CompetidorForm> = async data => {
     if (editing) {
@@ -106,23 +106,87 @@ export default function ListaCompetidores({ initialData }: { initialData: Compet
   };
 
   const columns: ColumnDef<Competidor>[] = [
-    { accessorKey: 'nome', header: 'NOME' },
-    { accessorKey: 'academia', header: 'ACADEMIA' },
-    { accessorKey: 'cidade', header: 'CIDADE' },
-    { accessorKey: 'estado', header: 'ESTADO' },
-    { accessorKey: 'vitorias', header: 'VITÓRIAS' },
+    {
+      accessorKey: 'nome',
+      header: ({ column }) => (
+        <div
+          className="cursor-pointer text-center text-white font-bold"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          NOME
+        </div>
+      ),
+      cell: ({ row }) => <div className="text-center">{row.getValue('nome')}</div>,
+    },
+    {
+      accessorKey: 'academia',
+      header: ({ column }) => (
+        <div
+          className="cursor-pointer text-center text-white font-bold"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          ACADEMIA
+        </div>
+      ),
+      cell: ({ row }) => <div className="text-center">{row.getValue('academia')}</div>,
+    },
+    {
+      accessorKey: 'cidade',
+      header: ({ column }) => (
+        <div
+          className="cursor-pointer text-center text-white font-bold"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          CIDADE
+        </div>
+      ),
+      cell: ({ row }) => <div className="text-center">{row.getValue('cidade')}</div>,
+    },
+    {
+      accessorKey: 'estado',
+      header: ({ column }) => (
+        <div
+          className="cursor-pointer text-center text-white font-bold"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          ESTADO
+        </div>
+      ),
+      cell: ({ row }) => <div className="text-center">{row.getValue('estado')}</div>,
+    },
+    {
+      accessorKey: 'vitorias',
+      header: ({ column }) => (
+        <div
+          className="cursor-pointer text-center text-white font-bold"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          VITÓRIAS
+        </div>
+      ),
+      cell: ({ row }) => <div className="text-center">{row.getValue('vitorias')}</div>,
+    },
     {
       id: 'actions',
-      header: 'ALTERAR',
+      header: () => <div className="text-center text-white font-bold">ALTERAR</div>,
       enableSorting: false,
       cell: ({ row }) => {
         const c = row.original;
         return (
           <div className="flex justify-center gap-2">
-            <Button size="lg" className="bg-blue-600 hover:bg-blue-900" onClick={() => openModal(c)}>
+            <Button
+              size="lg"
+              className="bg-blue-600 shadow-2xl hover:bg-blue-900 border border-gray-600"
+              onClick={() => openModal(c)}
+            >
               Editar
             </Button>
-            <Button size="lg" variant="destructive" className="bg-red-600 hover:bg-red-900" onClick={() => handleDelete(c.id)}>
+            <Button
+              size="lg"
+              variant="destructive"
+              className="bg-red-600 shadow-2xl hover:bg-red-900 border border-gray-600"
+              onClick={() => handleDelete(c.id)}
+            >
               Excluir
             </Button>
           </div>
@@ -144,23 +208,29 @@ export default function ListaCompetidores({ initialData }: { initialData: Compet
     <div className="p-4 h-screen bg-gray-950 text-white overflow-y-auto">
       <div className="flex justify-between items-center mb-4">
         <Link href="/dashboard">
-          <ChevronLeft className="cursor-pointer text-white" />
+          <ChevronLeft className="cursor-pointer size-14" />
         </Link>
-        <h1 className="text-2xl font-bold">COMPETIDORES</h1>
-        <Button size="lg" className="bg-green-600" onClick={() => openModal()}>
-          ADICIONAR
+        <h1 className="text-2xl mb-4 font-bold">COMPETIDORES</h1>
+        <Button
+          size={'lg'}
+          onClick={() => openModal()}
+          className="mb-4 bg-green-600 border border-gray-600"
+        >
+          ADICIONAR COMPETIDOR
         </Button>
       </div>
       <Table className="w-full bg-gray-900 rounded-md border border-gray-600 border-collapse">
         <TableHeader>
           {table.getHeaderGroups().map(hg => (
-            <TableRow key={hg.id} className="border-gray-600">
+            <TableRow key={hg.id} className="border border-gray-600">
               {hg.headers.map(header => (
                 <TableHead
                   key={header.id}
-                  className={`text-center font-bold text-white ${header.id === 'actions' ? 'w-24' : ''}`}
+                  className={`text-center text-white font-bold ${header.column.id === 'actions' ? 'w-24' : ''}`}
                 >
-                  {flexRender(header.column.columnDef.header, header.getContext())}
+                  {header.isPlaceholder
+                    ? null
+                    : flexRender(header.column.columnDef.header, header.getContext())}
                 </TableHead>
               ))}
             </TableRow>
@@ -168,7 +238,7 @@ export default function ListaCompetidores({ initialData }: { initialData: Compet
         </TableHeader>
         <TableBody>
           {table.getRowModel().rows.map(row => (
-            <TableRow key={row.id} className="border-gray-600">
+            <TableRow key={row.id} className="border border-gray-600">
               {row.getVisibleCells().map(cell => (
                 <TableCell
                   key={cell.id}
@@ -183,24 +253,28 @@ export default function ListaCompetidores({ initialData }: { initialData: Compet
       </Table>
 
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="bg-gray-950 text-white">
+        <DialogTrigger asChild>
+          <span />
+        </DialogTrigger>
+        <DialogContent className="bg-gray-950 text-white mb-2">
           <DialogHeader>
-            <DialogTitle>{editing ? 'Editar Competidor' : 'Adicionar Competidor'}</DialogTitle>
+            <DialogTitle className="mb-2">{editing ? 'Editar Competidor' : 'Adicionar Competidor'}</DialogTitle>
           </DialogHeader>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            <Input placeholder="Nome" {...register('nome', { required: true })} />
-            <Input placeholder="Academia" {...register('academia', { required: true })} />
-            <Input placeholder="Cidade" {...register('cidade', { required: true })} />
-            <Input placeholder="Estado" {...register('estado', { required: true })} />
+            <Input className="placeholder:text-white border border-gray-700" placeholder="Nome" {...register('nome', { required: true })} />
+            <Input className="placeholder:text-white border border-gray-700" placeholder="Academia" {...register('academia', { required: true })} />
+            <Input className="placeholder:text-white border border-gray-700" placeholder="Cidade" {...register('cidade', { required: true })} />
+            <Input className="placeholder:text-white border border-gray-700" placeholder="Estado" {...register('estado', { required: true })} />
             {editing && (
               <Input
                 type="number"
+                className="placeholder:text-white border border-gray-700"
                 placeholder={`Vitórias atuais: ${editing.vitorias}`}
                 {...register('vitorias', { valueAsNumber: true })}
               />
             )}
             <DialogFooter>
-              <Button type="submit" className="bg-gray-700">
+              <Button className="cursor-pointer bg-gray-900 border border-gray-700" type="submit">
                 {editing ? 'Atualizar' : 'Adicionar'}
               </Button>
             </DialogFooter>
