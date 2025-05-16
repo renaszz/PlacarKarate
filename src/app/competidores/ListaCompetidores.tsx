@@ -233,11 +233,61 @@ export default function ListaCompetidores({ initialData }: { initialData: Compet
       </div>
 
       <Table className="bg-gray-900 rounded-md w-full mt-6 border-1 border-gray-600">
-        <TableHeader>... omitted for brevity ...</TableHeader>
-        <TableBody>... omitted ...</TableBody>
+        <TableHeader>
+          {table.getHeaderGroups().map((hg) => (
+            <TableRow key={hg.id} className="bg-gray-950 border-gray-600 hover:bg-black font-white text-xl">
+              {hg.headers.map((header) => (
+                <TableHead key={header.id} className="text-center text-white font-bold">
+                  {header.isPlaceholder
+                    ? null
+                    : flexRender(header.column.columnDef.header, header.getContext())}
+                </TableHead>
+              ))}
+            </TableRow>
+          ))}
+        </TableHeader>
+        <TableBody>
+          {table.getRowModel().rows.map((row) => (
+            <TableRow key={row.id} className="hover:bg-black font-white">
+              {row.getVisibleCells().map((cell) => (
+                <TableCell key={cell.id} className="text-center">
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </TableCell>
+              ))}
+            </TableRow>
+          ))}
+        </TableBody>
       </Table>
 
-      <Dialog open={isOpen} onOpenChange={setIsOpen}>... omitted ...</Dialog>
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
+        <DialogTrigger asChild>
+          <span />
+        </DialogTrigger>
+        <DialogContent className="bg-gray-950 text-white mb-2">
+          <DialogHeader>
+            <DialogTitle className="mb-2">{editing ? 'Editar Competidor' : 'Adicionar Competidor'}</DialogTitle>
+          </DialogHeader>
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+            <Input className="placeholder:text-white border-1 border-gray-700" placeholder="Nome" {...register('nome', { required: true })} />
+            <Input className="placeholder:text-white border-1 border-gray-700" placeholder="Academia" {...register('academia', { required: true })} />
+            <Input className="placeholder:text-white border-1 border-gray-700" placeholder="Cidade" {...register('cidade', { required: true })} />
+            <Input className="placeholder:text-white border-1 border-gray-700" placeholder="Estado" {...register('estado', { required: true })} />
+            {editing && (
+              <Input
+                type="number"
+                className="placeholder:text-white border-1 border-gray-700"
+                placeholder={`Vitórias atuais: ${editing.vitorias}`}
+                {...register('vitorias', { valueAsNumber: true })}
+              />
+            )}
+            <DialogFooter>
+              <Button className="cursor-pointer bg-gray-900 border-1 border-gray-700" type="submit">
+                {editing ? 'Atualizar' : 'Adicionar'}
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
