@@ -114,8 +114,8 @@ export default function Placar() {
   }
 
   return (
-    <div className="h-screen w-screen overflow-hidden bg-gray-950 flex flex-col p-2">
-      <div className="flex flex-col gap-2 overflow-hidden flex-[7]">
+    <div className="h-screen w-screen overflow-hidden bg-gray-950 flex flex-col p-2 gap-2 min-h-0">
+      <div className="flex flex-col gap-2 overflow-hidden flex-[8] min-h-0">
         <Controlador
           nome={nome1}
           cor="red"
@@ -131,8 +131,7 @@ export default function Placar() {
           finalizado={partidaFinalizada}
         />
       </div>
-
-      <div className="flex flex-[3] bg-gray-900 rounded-md justify-between items-end">
+      <div className="flex flex-[2] flex-shrink-0 bg-gray-900 rounded-md justify-between items-end">
         <Card className="w-130 h-28 bg-gray-950 border-none m-4 rounded-md p-0">
           <CardContent className="grid grid-cols-2 w-full h-full p-0">
             <Link href="/dashboard">
@@ -162,3 +161,4 @@ export default function Placar() {
     </div>
   );
 }
+
