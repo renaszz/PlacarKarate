@@ -47,9 +47,24 @@ export function Controlador({
     <div className="flex-[2] bg-gray-900 rounded-md border-none flex justify-between">
       <div className="flex items-start flex-col justify-between">
         <Label className="font-semibold text-white text-6xl p-4">{nome}</Label>
-
-        {!finalizado ? (
-          <Card className="w-180 h-40 bg-gray-950 border-none m-4 rounded-md p-0">
+        <Card className="w-200 h-40 bg-gray-950 border-none m-4 rounded-md p-0">
+          {finalizado ? (
+            <>
+              <CardHeader className="bg-white font-bold border-none rounded-t-md p-0 items-center justify-center text-2xl h-[40px] flex">
+                VENCEU POR:
+              </CardHeader>
+              <CardContent className="grid grid-cols-4 grid-rows-2 w-full h-full p-0">
+                <Button onClick={() => registrarResultado("PONTOS")} className="bg-gray-950 w-full h-full rounded-none text-xl hover:border-white hover:border cursor-pointer">PONTOS</Button>
+                <Button onClick={() => registrarResultado("FULL IPPON")} className="bg-gray-950 w-full h-full rounded-none text-xl hover:border-white hover:border cursor-pointer">FULL IPPON</Button>
+                <Button onClick={() => registrarResultado("NO SHOW")} className="bg-gray-950 w-full h-full rounded-none text-xl hover:border-white hover:border cursor-pointer">NO SHOW</Button>
+                <Button onClick={() => registrarResultado("DESQUALIFICAÇÃO")} className="bg-gray-950 w-full h-full rounded-none text-xl hover:border-white hover:border cursor-pointer">DESQUALIFICAÇÃO</Button>
+                <Button onClick={() => registrarResultado("WO LUTA")} className="bg-gray-950 w-full h-full rounded-none text-xl hover:border-white hover:border cursor-pointer">WO LUTA</Button>
+                <Button onClick={() => registrarResultado("WO EVENTO")} className="bg-gray-950 w-full h-full rounded-none text-xl hover:border-white hover:border cursor-pointer">WO EVENTO</Button>
+                <Button onClick={() => registrarResultado("DECISÃO")} className="bg-gray-950 w-full h-full rounded-none text-xl hover:border-white hover:border cursor-pointer">DECISÃO</Button>
+                <div></div>
+              </CardContent>
+            </>
+          ) : (
             <CardContent className="grid grid-cols-4 grid-rows-2 w-full h-full p-0">
               <Button onClick={() => setIppon(ippon + 1)} className="bg-gray-950 w-full h-full rounded-none text-2xl hover:border-white hover:border cursor-pointer">+ IPPON</Button>
               <Button onClick={() => setWaza(waza + 1)} className="bg-gray-950 w-full h-full rounded-none text-2xl hover:border-white hover:border cursor-pointer">+ WAZA-ARI</Button>
@@ -60,27 +75,9 @@ export function Controlador({
               <Button onClick={() => setChui(Math.max(chui - 1, 0))} className="bg-gray-950 w-full h-full rounded-none text-2xl hover:border-white hover:border cursor-pointer">- CHUI</Button>
               <Button onClick={() => setGenten(Math.max(genten - 1, 0))} className="bg-gray-950 w-full h-full rounded-none text-2xl hover:border-white hover:border cursor-pointer">- GENTEN</Button>
             </CardContent>
-          </Card>
-        ) : (
-          <Card className="w-240 h-50 bg-gray-950 border-none m-4 rounded-md p-0">
-            <CardHeader className="bg-white font-bold border-none rounded-t-md p-0 items-center justify-center text-3xl">
-              VENCEU POR:
-            </CardHeader>
-            <CardContent className="grid grid-cols-4 grid-rows-2 w-full h-full p-0">
-              <Button onClick={() => registrarResultado("PONTOS")} className="bg-gray-950 w-full h-full rounded-none text-2xl hover:border-white hover:border cursor-pointer">PONTOS</Button>
-              <Button onClick={() => registrarResultado("FULL IPPON")} className="bg-gray-950 w-full h-full rounded-none text-2xl hover:border-white hover:border cursor-pointer">FULL IPPON</Button>
-              <Button onClick={() => registrarResultado("NO SHOW")} className="bg-gray-950 w-full h-full rounded-none text-2xl hover:border-white hover:border cursor-pointer">NO SHOW</Button>
-              <Button onClick={() => registrarResultado("DESQUALIFICAÇÃO")} className="bg-gray-950 w-full h-full rounded-none text-2xl hover:border-white hover:border cursor-pointer">DESQUALIFICAÇÃO</Button>
-              <Button onClick={() => registrarResultado("WO LUTA")} className="bg-gray-950 w-full h-full rounded-none text-2xl hover:border-white hover:border cursor-pointer">WO LUTA</Button>
-              <Button onClick={() => registrarResultado("WO EVENTO")} className="bg-gray-950 w-full h-full rounded-none text-2xl hover:border-white hover:border cursor-pointer">WO EVENTO</Button>
-              <Button onClick={() => registrarResultado("DECISÃO")} className="bg-gray-950 w-full h-full rounded-none text-2xl hover:border-white hover:border cursor-pointer">DECISÃO</Button>
-              <div></div>
-            </CardContent>
-          </Card>
-        )}
+          )}
+        </Card>
       </div>
-
-      {/* Placar lateral */}
       <div className="flex">
         <div className="flex flex-col justify-between items-center h-full w-20 py-4 mr-4">
           <div className="flex flex-col items-center">
