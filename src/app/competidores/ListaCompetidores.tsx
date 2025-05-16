@@ -64,7 +64,6 @@ export default function ListaCompetidores({ initialData }: { initialData: Compet
         academia: competidor.academia,
         cidade: competidor.cidade,
         estado: competidor.estado,
-        vitorias: competidor.vitorias,
       });
     } else {
       setEditing(null);
@@ -174,10 +173,10 @@ export default function ListaCompetidores({ initialData }: { initialData: Compet
         const c = row.original;
         return (
           <div className="flex justify-center gap-2">
-            <Button size="lg" className="bg-blue-600 shadow-2xl hover:bg-blue-900 border-1 border-gray-600" onClick={() => openModal(c)}>
+            <Button size="lg" className="bg-blue-600 shadow-2xl hover:bg-blue-900 border-1 border-gray-600 cursor-pointer" onClick={() => openModal(c)}>
               Editar
             </Button>
-            <Button size="lg" variant="destructive" className="bg-red-600 shadow-2xl hover:bg-red-900 border-1 border-gray-600" onClick={() => handleDelete(c.id)}>
+            <Button size="lg" variant="destructive" className="bg-red-600 shadow-2xl hover:bg-red-900 border-1 border-gray-600 cursor-pointer" onClick={() => handleDelete(c.id)}>
               Excluir
             </Button>
           </div>
