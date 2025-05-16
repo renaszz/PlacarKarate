@@ -21,7 +21,7 @@ import {
   DialogFooter,
 } from '@/components/ui/dialog';
 import Link from 'next/link';
-import { ChevronLeft, ArrowUpDown, MoreHorizontal } from 'lucide-react';
+import { ChevronLeft, ArrowUpDown } from 'lucide-react';
 import { toast } from 'sonner';
 import {
   ColumnDef,
