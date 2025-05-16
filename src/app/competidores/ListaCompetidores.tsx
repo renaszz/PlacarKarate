@@ -130,7 +130,7 @@ export default function ListaCompetidores({ initialData }: { initialData: Compet
     {
       id: 'actions',
       header: () => (
-        <div className="text-center text-white font-bold">ALTERAR</div>
+        <div className="text-center text-white font-bold w-24">ALTERAR</div>
       ),
       enableSorting: false,
       cell: ({ row }) => {
@@ -231,7 +231,6 @@ export default function ListaCompetidores({ initialData }: { initialData: Compet
           ADICIONAR COMPETIDOR
         </Button>
       </div>
-
       <Table className="bg-gray-900 rounded-md w-full mt-6 border-1 border-gray-600">
         <TableHeader>
           {table.getHeaderGroups().map((hg) => (
