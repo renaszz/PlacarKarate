@@ -114,8 +114,8 @@ export default function Placar() {
   }
 
   return (
-    <div className="h-screen w-screen overflow-hidden bg-gray-950 flex flex-col p-2 gap-2 min-h-0">
-      <div className="flex flex-col gap-2 overflow-hidden flex-[8] min-h-0">
+    <div className="h-screen w-screen bg-gray-950 flex flex-col p-2 gap-2">
+      <div className="flex flex-col gap-2 flex-1">
         <Controlador
           nome={nome1}
           cor="red"
@@ -130,11 +130,10 @@ export default function Placar() {
           oponenteId={idCompetidor1}
           finalizado={partidaFinalizada}
         />
-      </div>
-      <div className="flex flex-[2] flex-shrink-0 bg-gray-900 rounded-md justify-between items-end">
-        <Card className="w-130 h-28 bg-gray-950 border-none m-4 rounded-md p-0">
-          <CardContent className="grid grid-cols-2 w-full h-full p-0">
-            <Link href="/dashboard">
+        <div className="bg-gray-900 rounded-md w-full py-2 px-2 flex justify-between items-end">
+          <Card className="w-130 h-28 bg-gray-950 border-none rounded-none p-0 ml-2 mb-2">
+            <CardContent className="grid grid-cols-2 w-full h-full p-0">
+              <Link href="/dashboard">
               <Button className="bg-gray-950 w-full h-full cursor-pointer rounded-none text-2xl hover:border-white hover:border">
                 SAIR
               </Button>
@@ -154,11 +153,11 @@ export default function Placar() {
                 FINALIZAR PARTIDA
               </Button>
             )}
-          </CardContent>
-        </Card>
-        <Timer initialTime={time} />
+            </CardContent>
+          </Card>
+          <Timer initialTime={time} />
+        </div>
       </div>
     </div>
   );
 }
-
