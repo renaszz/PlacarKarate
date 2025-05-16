@@ -24,24 +24,28 @@ export function Controlador({
   const [waza, setWaza] = useState(0);
   const [chui, setChui] = useState(0);
   const [genten, setGenten] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
 
   const bgMain = cor === "red" ? "bg-red-600" : "bg-blue-700";
   const bgTop = cor === "red" ? "bg-red-400" : "bg-blue-500";
 
   async function registrarResultado(tipoResultado: string) {
-    await fetch("/api/partida/confronto", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        vencedorId: competidorId,
-        perdedorId: oponenteId,
-        resultado: tipoResultado,
-      }),
-    });
-    toast.success(`Resultado registrado: ${tipoResultado}`);
-    setTimeout(() => router.push("/dashboard"), 1500);
-  }
+    if (isSubmitting) return;
+
+    setIsSubmitting(true);
+      await fetch("/api/partida/confronto", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          vencedorId: competidorId,
+          perdedorId: oponenteId,
+          resultado: tipoResultado,
+        }),
+      });
+      toast.success(`Resultado registrado: ${tipoResultado}`);
+      setTimeout(() => router.push("/dashboard"), 1500);
+    }
 
   return (
     <div className="flex-[2] bg-gray-900 rounded-md border-none flex justify-between">
@@ -54,13 +58,13 @@ export function Controlador({
                 VENCEU POR:
               </CardHeader>
               <CardContent className="grid grid-cols-4 grid-rows-2 w-full h-full p-0">
-                <Button onClick={() => registrarResultado("PONTOS")} className="bg-gray-950 w-full h-full rounded-none text-xl hover:border-white hover:border cursor-pointer">PONTOS</Button>
-                <Button onClick={() => registrarResultado("FULL IPPON")} className="bg-gray-950 w-full h-full rounded-none text-xl hover:border-white hover:border cursor-pointer">FULL IPPON</Button>
-                <Button onClick={() => registrarResultado("NO SHOW")} className="bg-gray-950 w-full h-full rounded-none text-xl hover:border-white hover:border cursor-pointer">NO SHOW</Button>
-                <Button onClick={() => registrarResultado("DESQUALIFICAÇÃO")} className="bg-gray-950 w-full h-full rounded-none text-xl hover:border-white hover:border cursor-pointer">DESQUALIFICAÇÃO</Button>
-                <Button onClick={() => registrarResultado("WO LUTA")} className="bg-gray-950 w-full h-full rounded-none text-xl hover:border-white hover:border cursor-pointer">WO LUTA</Button>
-                <Button onClick={() => registrarResultado("WO EVENTO")} className="bg-gray-950 w-full h-full rounded-none text-xl hover:border-white hover:border cursor-pointer">WO EVENTO</Button>
-                <Button onClick={() => registrarResultado("DECISÃO")} className="bg-gray-950 w-full h-full rounded-none text-xl hover:border-white hover:border cursor-pointer">DECISÃO</Button>
+                <Button disabled={isSubmitting} onClick={() => registrarResultado("PONTOS")} className="bg-gray-950 w-full h-full rounded-none text-xl hover:border-white hover:border cursor-pointer">PONTOS</Button>
+                <Button disabled={isSubmitting} onClick={() => registrarResultado("FULL IPPON")} className="bg-gray-950 w-full h-full rounded-none text-xl hover:border-white hover:border cursor-pointer">FULL IPPON</Button>
+                <Button disabled={isSubmitting} onClick={() => registrarResultado("NO SHOW")} className="bg-gray-950 w-full h-full rounded-none text-xl hover:border-white hover:border cursor-pointer">NO SHOW</Button>
+                <Button disabled={isSubmitting} onClick={() => registrarResultado("DESQUALIFICAÇÃO")} className="bg-gray-950 w-full h-full rounded-none text-xl hover:border-white hover:border cursor-pointer">DESQUALIFICAÇÃO</Button>
+                <Button disabled={isSubmitting} onClick={() => registrarResultado("WO LUTA")} className="bg-gray-950 w-full h-full rounded-none text-xl hover:border-white hover:border cursor-pointer">WO LUTA</Button>
+                <Button disabled={isSubmitting} onClick={() => registrarResultado("WO EVENTO")} className="bg-gray-950 w-full h-full rounded-none text-xl hover:border-white hover:border cursor-pointer">WO EVENTO</Button>
+                <Button disabled={isSubmitting} onClick={() => registrarResultado("DECISÃO")} className="bg-gray-950 w-full h-full rounded-none text-xl hover:border-white hover:border cursor-pointer">DECISÃO</Button>
                 <div></div>
               </CardContent>
             </>
