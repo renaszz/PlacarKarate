@@ -90,7 +90,7 @@ export default function ListaCompetidores({ initialData }: { initialData: Compet
   };
 
   return (
-    <div className="p-4 h-full bg-gray-950 text-white overflow-y-auto">
+    <div className="p-4 h-full bg-gray-950 text-white overflow-hidden">
         <div className='flex justify-between items-center'>
             <Link href="/dashboard">
                 <ChevronLeft className="cursor-pointer size-14"/>
