@@ -1,10 +1,16 @@
-// app/competidores/CompetidoresClient.tsx
-'use client';
+import 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
 import { Input } from '@/components/ui/input';
 import {
   Dialog,
@@ -15,8 +21,16 @@ import {
   DialogFooter,
 } from '@/components/ui/dialog';
 import Link from 'next/link';
-import { ChevronLeft } from 'lucide-react';
+import { ChevronLeft, ArrowUpDown } from 'lucide-react';
 import { toast } from 'sonner';
+import {
+  ColumnDef,
+  SortingState,
+  useReactTable,
+  getCoreRowModel,
+  getSortedRowModel,
+  flexRender,
+} from '@tanstack/react-table';
 
 interface Competidor {
   id: string;
@@ -35,12 +49,84 @@ interface CompetidorForm {
   vitorias?: number;
 }
 
+const columns: ColumnDef<Competidor>[] = [
+  {
+    accessorKey: 'nome',
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+      >
+        Nome <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
+    cell: ({ row }) => <span className="text-center">{row.getValue('nome')}</span>,
+  },
+  {
+    accessorKey: 'academia',
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+      >
+        Academia <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
+    cell: ({ row }) => <span className="text-center">{row.getValue('academia')}</span>,
+  },
+  {
+    accessorKey: 'cidade',
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+      >
+        Cidade <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
+    cell: ({ row }) => <span className="text-center">{row.getValue('cidade')}</span>,
+  },
+  {
+    accessorKey: 'estado',
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+      >
+        Estado <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
+    cell: ({ row }) => <span className="text-center">{row.getValue('estado')}</span>,
+  },
+  {
+    accessorKey: 'vitorias',
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+      >
+        Vitórias <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
+    cell: ({ row }) => <span className="text-center">{row.getValue('vitorias')}</span>,
+  },
+];
+
 export default function ListaCompetidores({ initialData }: { initialData: Competidor[] }) {
   const { register, handleSubmit, reset } = useForm<CompetidorForm>();
-
   const [list, setList] = useState<Competidor[]>(initialData);
   const [isOpen, setIsOpen] = useState(false);
   const [editing, setEditing] = useState<Competidor | null>(null);
+  const [sorting, setSorting] = useState<SortingState>([]);
+
+  const table = useReactTable({
+    data: list,
+    columns,
+    state: { sorting },
+    onSortingChange: setSorting,
+    getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+  });
 
   const onSubmit: SubmitHandler<CompetidorForm> = async (data) => {
     if (editing) {
@@ -51,7 +137,7 @@ export default function ListaCompetidores({ initialData }: { initialData: Compet
       });
       const updated: Competidor = await res.json();
       setList((prev) => prev.map((c) => (c.id === updated.id ? updated : c)));
-      toast.success("Informações do competidor atualizadas!");
+      toast.success('Informações do competidor atualizadas!');
     } else {
       const res = await fetch('/api/competidores', {
         method: 'POST',
@@ -60,7 +146,7 @@ export default function ListaCompetidores({ initialData }: { initialData: Compet
       });
       const novo: Competidor = await res.json();
       setList((prev) => [...prev, novo]);
-      toast.success("Novo competidor registrado!");
+      toast.success('Novo competidor registrado!');
     }
 
     reset();
@@ -71,7 +157,7 @@ export default function ListaCompetidores({ initialData }: { initialData: Compet
   const handleDelete = async (id: string) => {
     await fetch(`/api/competidores/${id}`, { method: 'DELETE' });
     setList((prev) => prev.filter((c) => c.id !== id));
-    toast.success("Competidor excluído!");
+    toast.success('Competidor excluído!');
   };
 
   const openModal = (competidor?: Competidor) => {
@@ -92,63 +178,65 @@ export default function ListaCompetidores({ initialData }: { initialData: Compet
 
   return (
     <div className="p-4 h-screen bg-gray-950 text-white overflow-y-auto">
-        <div className='flex justify-between items-center'>
-            <Link href="/dashboard">
-                <ChevronLeft className="cursor-pointer size-14"/>
-            </Link>
-            <h1 className="text-2xl mb-4 font-bold">COMPETIDORES</h1>
-            <Button size={'lg'} onClick={() => openModal()} className="mb-4 bg-green-600 border-1 border-gray-600 cursor-pointer">
-              ADICIONAR COMPETIDOR
-            </Button>
-        </div>
-      <div className="flex justify-between mx-4">
+      <div className="flex justify-between items-center mb-4">
+        <Link href="/dashboard">
+          <ChevronLeft className="cursor-pointer size-14" />
+        </Link>
+        <h1 className="text-2xl font-bold">COMPETIDORES</h1>
+        <Button size="lg" onClick={() => openModal()} className="bg-green-600">
+          ADICIONAR COMPETIDOR
+        </Button>
       </div>
-      <Table className="bg-gray-900 rounded-md w-full mt-6 border-1 border-gray-600">
+
+      <Table className="bg-gray-900 rounded-md w-full">
         <TableHeader>
-          <TableRow className="bg-gray-950 border-gray-600 hover:bg-black font-white text-xl">
-            <TableHead className="text-center text-white font-bold">NOME</TableHead>
-            <TableHead className="text-center text-white font-bold">ACADEMIA</TableHead>
-            <TableHead className="text-center text-white font-bold">CIDADE</TableHead>
-            <TableHead className="text-center text-white font-bold">ESTADO</TableHead>
-            <TableHead className="text-center text-white font-bold">VITÓRIAS</TableHead>
-            <TableHead className="text-center text-white font-bold w-24">ALTERAR</TableHead>
-          </TableRow>
+          {table.getHeaderGroups().map((headerGroup) => (
+            <TableRow key={headerGroup.id}>
+              {headerGroup.headers.map((header) => (
+                <TableHead key={header.id} className="text-center text-white font-bold">
+                  {header.isPlaceholder
+                    ? null
+                    : flexRender(header.column.columnDef.header, header.getContext())}
+                </TableHead>
+              ))}
+            </TableRow>
+          ))}
         </TableHeader>
         <TableBody>
-          {list.map((c) => (
-            <TableRow key={c.id} className='hover:bg-black font-white'>
-              <TableCell className="text-center">{c.nome}</TableCell>
-              <TableCell className="text-center">{c.academia}</TableCell>
-              <TableCell className="text-center">{c.cidade}</TableCell>
-              <TableCell className="text-center">{c.estado}</TableCell>
-              <TableCell className="text-center">{c.vitorias}</TableCell>
-              <TableCell className='text-center'>
-                <Button size="lg" className='bg-blue-600 shadow-2xl  hover:bg-blue-900 border-1 border-gray-600 cursor-pointer' onClick={() => openModal(c)}>Editar</Button>
-                <Button size="lg" className='bg-red-600 shadow-2xl ml-4 hover:bg-red-900 border-1 border-gray-600 cursor-pointer' variant="destructive" onClick={() => handleDelete(c.id)}>
-                  Excluir
-                </Button>
-              </TableCell>
+          {table.getRowModel().rows.map((row) => (
+            <TableRow key={row.id} className="hover:bg-black">
+              {row.getVisibleCells().map((cell) => (
+                <TableCell key={cell.id} className="text-center">
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </TableCell>
+              ))}
             </TableRow>
           ))}
         </TableBody>
       </Table>
 
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogTrigger asChild><span /></DialogTrigger>
-        <DialogContent className="bg-gray-950 text-white mb-2">
+        <DialogTrigger asChild>
+          <span />
+        </DialogTrigger>
+        <DialogContent className="bg-gray-950 text-white">
           <DialogHeader>
-            <DialogTitle className="mb-2">{editing ? 'Editar Competidor' : 'Adicionar Competidor'}</DialogTitle>
+            <DialogTitle>{editing ? 'Editar Competidor' : 'Adicionar Competidor'}</DialogTitle>
           </DialogHeader>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            <Input className="placeholder:text-white border-1 border-gray-700" placeholder="Nome" {...register('nome', { required: true })} />
-            <Input className="placeholder:text-white border-1 border-gray-700" placeholder="Academia" {...register('academia', { required: true })} />
-            <Input className="placeholder:text-white border-1 border-gray-700" placeholder="Cidade" {...register('cidade', { required: true })} />
-            <Input className="placeholder:text-white border-1 border-gray-700" placeholder="Estado" {...register('estado', { required: true })} />
+            <Input placeholder="Nome" {...register('nome', { required: true })} />
+            <Input placeholder="Academia" {...register('academia', { required: true })} />
+            <Input placeholder="Cidade" {...register('cidade', { required: true })} />
+            <Input placeholder="Estado" {...register('estado', { required: true })} />
             {editing && (
-              <Input type="number" className="placeholder:text-white border-1 border-gray-700" placeholder={`Vitórias atuais: ${editing.vitorias}`} {...register('vitorias', { valueAsNumber: true })}/>
+              <Input
+                type="number"
+                placeholder={`Vitórias atuais: ${editing.vitorias}`}
+                {...register('vitorias', { valueAsNumber: true })}
+              />
             )}
             <DialogFooter>
-              <Button className="cursor-pointer bg-gray-900 border-1 border-gray-700" type="submit">{editing ? 'Atualizar' : 'Adicionar'}</Button>
+              <Button type="submit">{editing ? 'Atualizar' : 'Adicionar'}</Button>
             </DialogFooter>
           </form>
         </DialogContent>
