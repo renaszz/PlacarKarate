@@ -30,7 +30,7 @@ export default function ListaPartidas({ initialData }: { initialData: Partida[] 
   };
 
   return (
-    <div className="p-4 h-full bg-gray-950 text-white overflow-hidden">
+    <div className="p-4 h-screen overflow-y-auto bg-gray-950 text-white">
       <div className='flex justify-between items-center'>
         <Link href="/dashboard">
           <ChevronLeft className="cursor-pointer size-14" />
