@@ -168,21 +168,19 @@ export default function ListaCompetidores({ initialData }: { initialData: Compet
     },
     {
       id: 'actions',
-      header: () => (
-        <div className="cursor-pointer text-center text-white font-bold sticky right-0 bg-gray-950 w-24">ALTERAR</div>
-      ),
+      header: () => <div className="text-center text-white font-bold">ALTERAR</div>,
       enableSorting: false,
       cell: ({ row }) => {
         const c = row.original;
         return (
-          <TableCell className="sticky right-0 bg-gray-900 w-24 flex justify-center gap-2">
+          <div className="flex justify-center gap-2">
             <Button size="lg" className="bg-blue-600 shadow-2xl hover:bg-blue-900 border-1 border-gray-600" onClick={() => openModal(c)}>
               Editar
             </Button>
             <Button size="lg" variant="destructive" className="bg-red-600 shadow-2xl hover:bg-red-900 border-1 border-gray-600" onClick={() => handleDelete(c.id)}>
               Excluir
             </Button>
-          </TableCell>
+          </div>
         );
       },
     },
@@ -213,7 +211,9 @@ export default function ListaCompetidores({ initialData }: { initialData: Compet
           {table.getHeaderGroups().map(hg => (
             <TableRow key={hg.id} className="bg-gray-950 border-gray-600 hover:bg-black text-xl">
               {hg.headers.map(header => (
-                flexRender(header.column.columnDef.header, header.getContext())
+                <TableHead key={header.id} className={`text-center text-white font-bold ${header.column.id === 'actions' ? 'w-24' : ''}`}>
+                  {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                </TableHead>
               ))}
             </TableRow>
           ))}
@@ -222,7 +222,9 @@ export default function ListaCompetidores({ initialData }: { initialData: Compet
           {table.getRowModel().rows.map(row => (
             <TableRow key={row.id} className="hover:bg-black">
               {row.getVisibleCells().map(cell => (
-                flexRender(cell.column.columnDef.cell, cell.getContext())
+                <TableCell key={cell.id} className={`text-center ${cell.column.id === 'actions' ? 'w-24' : ''}`}> 
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </TableCell>
               ))}
             </TableRow>
           ))}
