@@ -171,7 +171,7 @@ export default function ListaPartidas({ initialData }: { initialData: Partida[] 
           {table.getHeaderGroups().map((hg) => (
             <TableRow
               key={hg.id}
-              className="bg-gray-950 border-gray-600 hover:bg-black font-white text-xl"
+              className="bg-gray-950 border-gray-600 border-1 hover:bg-black font-white text-xl"
             >
               {hg.headers.map((header) => (
                 <TableHead
@@ -190,7 +190,7 @@ export default function ListaPartidas({ initialData }: { initialData: Partida[] 
         </TableHeader>
         <TableBody>
           {table.getRowModel().rows.map((row) => (
-            <TableRow key={row.id} className="hover:bg-black font-white">
+            <TableRow key={row.id} className="hover:bg-black font-white border-1 border-gray-600">
               {row.getVisibleCells().map((cell) => (
                 <TableCell
                   key={cell.id}
