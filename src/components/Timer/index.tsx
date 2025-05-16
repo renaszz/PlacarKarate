@@ -28,7 +28,7 @@ export const Timer = ({ initialTime }: TimerProps) => {
         if (prev <= 1) {
           clearInterval(intervalo);
           setIsRunning(false);
-          return 0; // Para o cronômetro quando chega a 0
+          return 0;
         }
         return prev - 1;
       });
@@ -72,7 +72,7 @@ export const Timer = ({ initialTime }: TimerProps) => {
   };
 
   return (
-    <div className="flex flex-col justify-center w-96 h-52 rounded-t-2xl bg-gray-950 border-none rounded-b-none mx-2 my-2">
+    <div className="flex flex-col justify-center w-full sm:w-96 h-full sm:h-52 rounded-t-2xl bg-gray-950 border-none rounded-b-none mx-2 my-2">
       <div className="flex justify-center items-center flex-1">
         <Label className={`font-semibold text-9xl ${getTimerColor()} min-w-[90px]`}>
           {formatarTempo(timer)}
