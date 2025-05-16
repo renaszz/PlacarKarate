@@ -21,6 +21,7 @@ export default function Kata() {
   const [idCompetidor, setIdCompetidor] = useState("");
   const [started, setStarted] = useState(false);
   const [time, setTime] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [inputTime, setInputTime] = useState(0);
   const [notas, setNotas] = useState([0, 0, 0]);
   const router = useRouter();
@@ -56,6 +57,9 @@ export default function Kata() {
   const nome1 = competidores.find(c => c.id === idCompetidor)?.nome || "Competidor";
 
   async function registrarPartidaKata() {
+    if (isSubmitting) return;
+
+    setIsSubmitting(true);
     await fetch("/api/partida/kata", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -153,6 +157,7 @@ export default function Kata() {
             </Link>
             <Button
               onClick={registrarPartidaKata}
+              disabled={isSubmitting}
               className="bg-gray-950 w-1/2 h-full rounded-none text-2xl hover:border-white hover:border hover:bg-gray-950 cursor-pointer"
             >
               FINALIZAR PARTIDA
