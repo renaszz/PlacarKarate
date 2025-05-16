@@ -205,7 +205,7 @@ export default function ListaCompetidores({ initialData }: { initialData: Compet
           ADICIONAR COMPETIDOR
         </Button>
       </div>
-      <Table className="bg-gray-900 rounded-md w-full mt-6 border-1 border-gray-600 border-collapse">
+      <Table className="bg-gray-900 rounded-md w-full mt-6 border-1 border-gray-600">
         <TableHeader>
           {table.getHeaderGroups().map(hg => (
             <TableRow key={hg.id} className="bg-gray-950 border-gray-600 hover:bg-black text-xl">
