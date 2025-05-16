@@ -208,7 +208,7 @@ export default function ListaCompetidores({ initialData }: { initialData: Compet
       <Table className="bg-gray-900 rounded-md w-full mt-6 border-1 border-gray-600">
         <TableHeader>
           {table.getHeaderGroups().map(hg => (
-            <TableRow key={hg.id} className="bg-gray-950 border-gray-600 hover:bg-black text-xl">
+            <TableRow key={hg.id} className="bg-gray-950 border-1 border-gray-600 hover:bg-black text-xl">
               {hg.headers.map(header => (
                 <TableHead key={header.id} className={`text-center text-white font-bold ${header.column.id === 'actions' ? 'w-24' : ''}`}>
                   {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
@@ -219,7 +219,7 @@ export default function ListaCompetidores({ initialData }: { initialData: Compet
         </TableHeader>
         <TableBody>
           {table.getRowModel().rows.map(row => (
-            <TableRow key={row.id} className="hover:bg-black">
+            <TableRow key={row.id} className="hover:bg-black cursor-pointer border-1 border-gray-600">
               {row.getVisibleCells().map(cell => (
                 <TableCell key={cell.id} className={`text-center ${cell.column.id === 'actions' ? 'w-24' : ''}`}> 
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
