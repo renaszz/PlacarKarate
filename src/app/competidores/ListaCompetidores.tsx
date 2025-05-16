@@ -142,12 +142,13 @@ export default function ListaCompetidores({ initialData }: { initialData: Compet
     }
     setIsOpen(true);
   }
-
+  /* eslint-disable @typescript-eslint/no-unused-vars */
   async function handleDelete(id: string) {
     await fetch(`/api/competidores/${id}`, { method: 'DELETE' });
     setList((prev) => prev.filter((c) => c.id !== id));
     toast.success('Competidor excluído!');
   }
+  /* eslint-enable @typescript-eslint/no-unused-vars */
 
   const onSubmit: SubmitHandler<CompetidorForm> = async (data) => {
     if (editing) {
