@@ -168,28 +168,21 @@ export default function ListaCompetidores({ initialData }: { initialData: Compet
     },
     {
       id: 'actions',
-      header: () => <div className="text-center text-white font-bold">ALTERAR</div>,
+      header: () => (
+        <div className="cursor-pointer text-center text-white font-bold sticky right-0 bg-gray-950 w-24">ALTERAR</div>
+      ),
       enableSorting: false,
       cell: ({ row }) => {
         const c = row.original;
         return (
-          <div className="flex justify-center gap-2">
-            <Button
-              size="lg"
-              className="bg-blue-600 shadow-2xl hover:bg-blue-900 border border-gray-600"
-              onClick={() => openModal(c)}
-            >
+          <TableCell className="sticky right-0 bg-gray-900 w-24 flex justify-center gap-2">
+            <Button size="lg" className="bg-blue-600 shadow-2xl hover:bg-blue-900 border-1 border-gray-600" onClick={() => openModal(c)}>
               Editar
             </Button>
-            <Button
-              size="lg"
-              variant="destructive"
-              className="bg-red-600 shadow-2xl hover:bg-red-900 border border-gray-600"
-              onClick={() => handleDelete(c.id)}
-            >
+            <Button size="lg" variant="destructive" className="bg-red-600 shadow-2xl hover:bg-red-900 border-1 border-gray-600" onClick={() => handleDelete(c.id)}>
               Excluir
             </Button>
-          </div>
+          </TableCell>
         );
       },
     },
@@ -211,41 +204,25 @@ export default function ListaCompetidores({ initialData }: { initialData: Compet
           <ChevronLeft className="cursor-pointer size-14" />
         </Link>
         <h1 className="text-2xl mb-4 font-bold">COMPETIDORES</h1>
-        <Button
-          size={'lg'}
-          onClick={() => openModal()}
-          className="mb-4 bg-green-600 border border-gray-600"
-        >
+        <Button size={'lg'} onClick={() => openModal()} className="mb-4 bg-green-600 border-1 border-gray-600 cursor-pointer">
           ADICIONAR COMPETIDOR
         </Button>
       </div>
-      <Table className="w-full bg-gray-900 rounded-md border border-gray-600 border-collapse">
+      <Table className="bg-gray-900 rounded-md w-full mt-6 border-1 border-gray-600 border-collapse">
         <TableHeader>
           {table.getHeaderGroups().map(hg => (
-            <TableRow key={hg.id} className="border border-gray-600">
+            <TableRow key={hg.id} className="bg-gray-950 border-gray-600 hover:bg-black text-xl">
               {hg.headers.map(header => (
-                <TableHead
-                  key={header.id}
-                  className={`text-center text-white font-bold ${header.column.id === 'actions' ? 'w-24' : ''}`}
-                >
-                  {header.isPlaceholder
-                    ? null
-                    : flexRender(header.column.columnDef.header, header.getContext())}
-                </TableHead>
+                flexRender(header.column.columnDef.header, header.getContext())
               ))}
             </TableRow>
           ))}
         </TableHeader>
         <TableBody>
           {table.getRowModel().rows.map(row => (
-            <TableRow key={row.id} className="border border-gray-600">
+            <TableRow key={row.id} className="hover:bg-black">
               {row.getVisibleCells().map(cell => (
-                <TableCell
-                  key={cell.id}
-                  className={`text-center ${cell.column.id === 'actions' ? 'w-24' : ''}`}
-                >
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </TableCell>
+                flexRender(cell.column.columnDef.cell, cell.getContext())
               ))}
             </TableRow>
           ))}
@@ -253,30 +230,21 @@ export default function ListaCompetidores({ initialData }: { initialData: Compet
       </Table>
 
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogTrigger asChild>
-          <span />
-        </DialogTrigger>
+        <DialogTrigger asChild><span /></DialogTrigger>
         <DialogContent className="bg-gray-950 text-white mb-2">
           <DialogHeader>
             <DialogTitle className="mb-2">{editing ? 'Editar Competidor' : 'Adicionar Competidor'}</DialogTitle>
           </DialogHeader>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            <Input className="placeholder:text-white border border-gray-700" placeholder="Nome" {...register('nome', { required: true })} />
-            <Input className="placeholder:text-white border border-gray-700" placeholder="Academia" {...register('academia', { required: true })} />
-            <Input className="placeholder:text-white border border-gray-700" placeholder="Cidade" {...register('cidade', { required: true })} />
-            <Input className="placeholder:text-white border border-gray-700" placeholder="Estado" {...register('estado', { required: true })} />
+            <Input className="placeholder:text-white border-1 border-gray-700" placeholder="Nome" {...register('nome',{required:true})}/>
+            <Input className="placeholder:text-white border-1 border-gray-700" placeholder="Academia" {...register('academia',{required:true})}/>
+            <Input className="placeholder:text-white border-1 border-gray-700" placeholder="Cidade" {...register('cidade',{required:true})}/>
+            <Input className="placeholder:text-white border-1 border-gray-700" placeholder="Estado" {...register('estado',{required:true})}/>
             {editing && (
-              <Input
-                type="number"
-                className="placeholder:text-white border border-gray-700"
-                placeholder={`Vitórias atuais: ${editing.vitorias}`}
-                {...register('vitorias', { valueAsNumber: true })}
-              />
+              <Input type="number" className="placeholder:text-white border-1 border-gray-700" placeholder={`Vitórias atuais: ${editing.vitorias}`} {...register('vitorias',{valueAsNumber:true})}/>
             )}
             <DialogFooter>
-              <Button className="cursor-pointer bg-gray-900 border border-gray-700" type="submit">
-                {editing ? 'Atualizar' : 'Adicionar'}
-              </Button>
+              <Button className="cursor-pointer bg-gray-900 border-1 border-gray-700" type="submit">{editing?'Atualizar':'Adicionar'}</Button>
             </DialogFooter>
           </form>
         </DialogContent>
