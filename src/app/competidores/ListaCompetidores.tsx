@@ -21,7 +21,7 @@ import {
   DialogFooter,
 } from '@/components/ui/dialog';
 import Link from 'next/link';
-import { ChevronLeft, ArrowUpDown } from 'lucide-react';
+import { ChevronLeft, ArrowUpDown, MoreHorizontal } from 'lucide-react';
 import { toast } from 'sonner';
 import {
   ColumnDef,
@@ -142,6 +142,7 @@ export default function ListaCompetidores({ initialData }: { initialData: Compet
     }
     setIsOpen(true);
   }
+
   /* eslint-disable @typescript-eslint/no-unused-vars */
   async function handleDelete(id: string) {
     await fetch(`/api/competidores/${id}`, { method: 'DELETE' });
