@@ -72,13 +72,13 @@ export default function ListaCompetidores({ initialData }: { initialData: Compet
     setIsOpen(true);
   }
 
-  async function handleDelete(id: string) {
+  const handleDelete = async (id: string) => {
     await fetch(`/api/competidores/${id}`, { method: 'DELETE' });
-    setList(prev => prev.filter(c => c.id !== id));
-    toast.success('Competidor excluído!');
-  }
+    setList((prev) => prev.filter((c) => c.id !== id));
+    toast.success("Competidor excluído!");
+  };
 
-  const onSubmit: SubmitHandler<CompetidorForm> = async data => {
+  const onSubmit: SubmitHandler<CompetidorForm> = async (data) => {
     if (editing) {
       const res = await fetch(`/api/competidores/${editing.id}`, {
         method: 'PUT',
@@ -86,8 +86,8 @@ export default function ListaCompetidores({ initialData }: { initialData: Compet
         body: JSON.stringify(data),
       });
       const updated: Competidor = await res.json();
-      setList(prev => prev.map(c => (c.id === updated.id ? updated : c)));
-      toast.success('Informações do competidor atualizadas!');
+      setList((prev) => prev.map((c) => (c.id === updated.id ? updated : c)));
+      toast.success("Informações do competidor atualizadas!");
     } else {
       const res = await fetch('/api/competidores', {
         method: 'POST',
@@ -95,8 +95,8 @@ export default function ListaCompetidores({ initialData }: { initialData: Compet
         body: JSON.stringify(data),
       });
       const novo: Competidor = await res.json();
-      setList(prev => [...prev, novo]);
-      toast.success('Novo competidor registrado!');
+      setList((prev) => [...prev, novo]);
+      toast.success("Novo competidor registrado!");
     }
 
     reset();
