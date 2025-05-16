@@ -15,7 +15,7 @@ export async function PUT(
       academia: body.academia,
       cidade: body.cidade,
       estado: body.estado,
-      vitorias: body.vitorias ?? 0,
+      vitorias: body.vitorias,
     },
   });
 
