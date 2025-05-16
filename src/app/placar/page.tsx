@@ -115,7 +115,6 @@ export default function Placar() {
 
   return (
     <div className="min-h-screen w-screen bg-gray-950 flex flex-col p-2 gap-2 overflow-y-auto">
-      <div className="flex flex-col gap-2 flex-1">
         <Controlador
           nome={nome1}
           cor="red"
@@ -158,6 +157,5 @@ export default function Placar() {
           <Timer initialTime={time} />
         </div>
       </div>
-    </div>
   );
 }
