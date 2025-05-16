@@ -1,4 +1,4 @@
-'use client';
+import 'use client';
 
 import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
@@ -21,7 +21,7 @@ import {
   DialogFooter,
 } from '@/components/ui/dialog';
 import Link from 'next/link';
-import { ChevronLeft, ArrowUpDown, MoreHorizontal } from 'lucide-react';
+import { ChevronLeft } from 'lucide-react';
 import { toast } from 'sonner';
 import {
   ColumnDef,
@@ -60,58 +60,96 @@ export default function ListaCompetidores({ initialData }: { initialData: Compet
     {
       accessorKey: 'nome',
       header: ({ column }) => (
-        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Nome <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
+        <div
+          className="cursor-pointer text-center text-white font-bold"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          NOME
+        </div>
       ),
-      cell: ({ row }) => row.getValue('nome'),
+      cell: ({ row }) => (
+        <div className="text-center">{row.getValue('nome')}</div>
+      ),
     },
     {
       accessorKey: 'academia',
       header: ({ column }) => (
-        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Academia <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
+        <div
+          className="cursor-pointer text-center text-white font-bold"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          ACADEMIA
+        </div>
       ),
-      cell: ({ row }) => row.getValue('academia'),
+      cell: ({ row }) => (
+        <div className="text-center">{row.getValue('academia')}</div>
+      ),
     },
     {
       accessorKey: 'cidade',
       header: ({ column }) => (
-        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Cidade <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
+        <div
+          className="cursor-pointer text-center text-white font-bold"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          CIDADE
+        </div>
       ),
-      cell: ({ row }) => row.getValue('cidade'),
+      cell: ({ row }) => (
+        <div className="text-center">{row.getValue('cidade')}</div>
+      ),
     },
     {
       accessorKey: 'estado',
       header: ({ column }) => (
-        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Estado <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
+        <div
+          className="cursor-pointer text-center text-white font-bold"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          ESTADO
+        </div>
       ),
-      cell: ({ row }) => row.getValue('estado'),
+      cell: ({ row }) => (
+        <div className="text-center">{row.getValue('estado')}</div>
+      ),
     },
     {
       accessorKey: 'vitorias',
       header: ({ column }) => (
-        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Vitórias <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
+        <div
+          className="cursor-pointer text-center text-white font-bold"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          VITÓRIAS
+        </div>
       ),
-      cell: ({ row }) => row.getValue('vitorias'),
+      cell: ({ row }) => (
+        <div className="text-center">{row.getValue('vitorias')}</div>
+      ),
     },
     {
       id: 'actions',
-      header: 'Ações',
+      header: <div className="text-center text-white font-bold">ALTERAR</div>,
       enableSorting: false,
       cell: ({ row }) => {
         const c = row.original;
         return (
           <div className="flex justify-center gap-2">
-            <Button size="sm" onClick={() => openModal(c)}>Editar</Button>
-            <Button size="sm" variant="destructive" onClick={() => handleDelete(c.id)}>Excluir</Button>
+            <Button
+              size="lg"
+              className="bg-blue-600 shadow-2xl hover:bg-blue-900 border-1 border-gray-600 cursor-pointer"
+              onClick={() => openModal(c)}
+            >
+              Editar
+            </Button>
+            <Button
+              size="lg"
+              className="bg-red-600 shadow-2xl ml-4 hover:bg-red-900 border-1 border-gray-600 cursor-pointer"
+              variant="destructive"
+              onClick={() => handleDelete(c.id)}
+            >
+              Excluir
+            </Button>
           </div>
         );
       },
@@ -135,6 +173,7 @@ export default function ListaCompetidores({ initialData }: { initialData: Compet
         academia: competidor.academia,
         cidade: competidor.cidade,
         estado: competidor.estado,
+        vitorias: competidor.vitorias,
       });
     } else {
       setEditing(null);
@@ -143,46 +182,64 @@ export default function ListaCompetidores({ initialData }: { initialData: Compet
     setIsOpen(true);
   }
 
-  /* eslint-disable @typescript-eslint/no-unused-vars */
+  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
   async function handleDelete(id: string) {
     await fetch(`/api/competidores/${id}`, { method: 'DELETE' });
     setList((prev) => prev.filter((c) => c.id !== id));
     toast.success('Competidor excluído!');
   }
-  /* eslint-enable @typescript-eslint/no-unused-vars */
 
   const onSubmit: SubmitHandler<CompetidorForm> = async (data) => {
     if (editing) {
       const res = await fetch(`/api/competidores/${editing.id}`, {
-        method: 'PUT', headers: {'Content-Type':'application/json'}, body: JSON.stringify(data)
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
       });
       const updated: Competidor = await res.json();
-      setList((prev) => prev.map((c) => c.id === updated.id ? updated : c));
+      setList((prev) => prev.map((c) => (c.id === updated.id ? updated : c)));
       toast.success('Informações do competidor atualizadas!');
     } else {
-      const res = await fetch('/api/competidores',{ method: 'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data) });
+      const res = await fetch('/api/competidores', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
       const novo: Competidor = await res.json();
       setList((prev) => [...prev, novo]);
       toast.success('Novo competidor registrado!');
     }
-    reset(); setEditing(null); setIsOpen(false);
+
+    reset();
+    setEditing(null);
+    setIsOpen(false);
   };
 
   return (
     <div className="p-4 h-screen bg-gray-950 text-white overflow-y-auto">
       <div className="flex justify-between items-center mb-4">
-        <Link href="/dashboard"><ChevronLeft className="cursor-pointer size-14"/></Link>
-        <h1 className="text-2xl font-bold">COMPETIDORES</h1>
-        <Button size="lg" onClick={() => openModal()} className="bg-green-600">ADICIONAR COMPETIDOR</Button>
+        <Link href="/dashboard">
+          <ChevronLeft className="cursor-pointer size-14" />
+        </Link>
+        <h1 className="text-2xl mb-4 font-bold">COMPETIDORES</h1>
+        <Button
+          size={'lg'}
+          onClick={() => openModal()}
+          className="mb-4 bg-green-600 border-1 border-gray-600 cursor-pointer"
+        >
+          ADICIONAR COMPETIDOR
+        </Button>
       </div>
 
-      <Table className="bg-gray-900 rounded-md w-full">
+      <Table className="bg-gray-900 rounded-md w-full mt-6 border-1 border-gray-600">
         <TableHeader>
           {table.getHeaderGroups().map((hg) => (
-            <TableRow key={hg.id}>
+            <TableRow key={hg.id} className="bg-gray-950 border-gray-600 hover:bg-black font-white text-xl">
               {hg.headers.map((header) => (
                 <TableHead key={header.id} className="text-center text-white font-bold">
-                  {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                  {header.isPlaceholder
+                    ? null
+                    : flexRender(header.column.columnDef.header, header.getContext())}
                 </TableHead>
               ))}
             </TableRow>
@@ -190,7 +247,7 @@ export default function ListaCompetidores({ initialData }: { initialData: Compet
         </TableHeader>
         <TableBody>
           {table.getRowModel().rows.map((row) => (
-            <TableRow key={row.id} className="hover:bg-black">
+            <TableRow key={row.id} className="hover:bg-black font-white">
               {row.getVisibleCells().map((cell) => (
                 <TableCell key={cell.id} className="text-center">
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -202,16 +259,29 @@ export default function ListaCompetidores({ initialData }: { initialData: Compet
       </Table>
 
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogTrigger asChild><span/></DialogTrigger>
-        <DialogContent className="bg-gray-950 text-white">
-          <DialogHeader><DialogTitle>{editing ? 'Editar Competidor' : 'Adicionar Competidor'}</DialogTitle></DialogHeader>
+        <DialogTrigger asChild><span /></DialogTrigger>
+        <DialogContent className="bg-gray-950 text-white mb-2">
+          <DialogHeader>
+            <DialogTitle className="mb-2">{editing ? 'Editar Competidor' : 'Adicionar Competidor'}</DialogTitle>
+          </DialogHeader>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            <Input placeholder="Nome" {...register('nome',{required:true})}/>
-            <Input placeholder="Academia" {...register('academia',{required:true})}/>
-            <Input placeholder="Cidade" {...register('cidade',{required:true})}/>
-            <Input placeholder="Estado" {...register('estado',{required:true})}/>
-            {editing && <Input type="number" placeholder={`Vitórias atuais: ${editing.vitorias}`} {...register('vitorias',{valueAsNumber:true})}/>}            
-            <DialogFooter><Button type="submit">{editing?'Atualizar':'Adicionar'}</Button></DialogFooter>
+            <Input className="placeholder:text-white border-1 border-gray-700" placeholder="Nome" {...register('nome', { required: true })} />
+            <Input className="placeholder:text-white border-1 border-gray-700" placeholder="Academia" {...register('academia', { required: true })} />
+            <Input className="placeholder:text-white border-1 border-gray-700" placeholder="Cidade" {...register('cidade', { required: true })} />
+            <Input className="placeholder:text-white border-1 border-gray-700" placeholder="Estado" {...register('estado', { required: true })} />
+            {editing && (
+              <Input
+                type="number"
+                className="placeholder:text-white border-1 border-gray-700"
+                placeholder={`Vitórias atuais: ${editing.vitorias}`}
+                {...register('vitorias', { valueAsNumber: true })}
+              />
+            )}
+            <DialogFooter>
+              <Button className="cursor-pointer bg-gray-900 border-1 border-gray-700" type="submit">
+                {editing ? 'Atualizar' : 'Adicionar'}
+              </Button>
+            </DialogFooter>
           </form>
         </DialogContent>
       </Dialog>
