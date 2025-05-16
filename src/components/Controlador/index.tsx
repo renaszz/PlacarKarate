@@ -66,14 +66,14 @@ export function Controlador({
             </>
           ) : (
             <CardContent className="grid grid-cols-4 grid-rows-2 w-full h-full p-0">
-              <Button onClick={() => setIppon(ippon + 1)} className="bg-gray-950 w-full h-full rounded-none text-2xl hover:border-white hover:border cursor-pointer">+ IPPON</Button>
-              <Button onClick={() => setWaza(waza + 1)} className="bg-gray-950 w-full h-full rounded-none text-2xl hover:border-white hover:border cursor-pointer">+ WAZA-ARI</Button>
-              <Button onClick={() => setChui(chui + 1)} className="bg-gray-950 w-full h-full rounded-none text-2xl hover:border-white hover:border cursor-pointer">+ CHUI</Button>
-              <Button onClick={() => setGenten(genten + 1)} className="bg-gray-950 w-full h-full rounded-none text-2xl hover:border-white hover:border cursor-pointer">+ GENTEN</Button>
-              <Button onClick={() => setIppon(Math.max(ippon - 1, 0))} className="bg-gray-950 w-full h-full rounded-none text-2xl hover:border-white hover:border cursor-pointer">- IPPON</Button>
-              <Button onClick={() => setWaza(Math.max(waza - 1, 0))} className="bg-gray-950 w-full h-full rounded-none text-2xl hover:border-white hover:border cursor-pointer">- WAZA-ARI</Button>
-              <Button onClick={() => setChui(Math.max(chui - 1, 0))} className="bg-gray-950 w-full h-full rounded-none text-2xl hover:border-white hover:border cursor-pointer">- CHUI</Button>
-              <Button onClick={() => setGenten(Math.max(genten - 1, 0))} className="bg-gray-950 w-full h-full rounded-none text-2xl hover:border-white hover:border cursor-pointer">- GENTEN</Button>
+              <Button onClick={() => setIppon(ippon + 1)} className="bg-gray-950 w-full h-full rounded-none text-[1.2vh] hover:border-white hover:border cursor-pointer">+ IPPON</Button>
+              <Button onClick={() => setWaza(waza + 1)} className="bg-gray-950 w-full h-full rounded-none text-[1.2vh] hover:border-white hover:border cursor-pointer">+ WAZA-ARI</Button>
+              <Button onClick={() => setChui(chui + 1)} className="bg-gray-950 w-full h-full rounded-none text-[1.2vh] hover:border-white hover:border cursor-pointer">+ CHUI</Button>
+              <Button onClick={() => setGenten(genten + 1)} className="bg-gray-950 w-full h-full rounded-none text-[1.2vh] hover:border-white hover:border cursor-pointer">+ GENTEN</Button>
+              <Button onClick={() => setIppon(Math.max(ippon - 1, 0))} className="bg-gray-950 w-full h-full rounded-none text-[1.2vh] hover:border-white hover:border cursor-pointer">- IPPON</Button>
+              <Button onClick={() => setWaza(Math.max(waza - 1, 0))} className="bg-gray-950 w-full h-full rounded-none text-[1.2vh] hover:border-white hover:border cursor-pointer">- WAZA-ARI</Button>
+              <Button onClick={() => setChui(Math.max(chui - 1, 0))} className="bg-gray-950 w-full h-full rounded-none text-[1.2vh] hover:border-white hover:border cursor-pointer">- CHUI</Button>
+              <Button onClick={() => setGenten(Math.max(genten - 1, 0))} className="bg-gray-950 w-full h-full rounded-none text-[1.2vh] hover:border-white hover:border cursor-pointer">- GENTEN</Button>
             </CardContent>
           )}
         </Card>
@@ -81,20 +81,20 @@ export function Controlador({
       <div className="flex">
         <div className="flex flex-col justify-between items-center h-full w-20 py-4 mr-4">
           <div className="flex flex-col items-center">
-            <Label className="text-gray-400 text-xl">CHUI</Label>
-            <Label className="text-gray-400 font-bold text-8xl">{chui}</Label>
+            <Label className="text-gray-400 text-[1vh]">CHUI</Label>
+            <Label className="text-gray-400 font-bold text-[8vh]">{chui}</Label>
           </div>
           <div className="flex flex-col items-center">
-            <Label className="text-gray-400 text-xl">GENTEN</Label>
-            <Label className="text-gray-400 font-bold text-8xl">{genten}</Label>
+            <Label className="text-gray-400 text-[1vh]">GENTEN</Label>
+            <Label className="text-gray-400 font-bold text-[8vh]">{genten}</Label>
           </div>
         </div>
         <div className="flex flex-col">
           <div className={`flex w-70 h-1/4 ${bgTop} rounded-tr-md justify-center items-center`}>
-            <Label className="text-white font-semibold text-7xl mb-2">{waza}</Label>
+            <Label className="text-white font-semibold text-[4vh] mb-2">{waza}</Label>
           </div>
           <div className={`flex w-70 h-3/4 ${bgMain} rounded-br-md justify-center items-center`}>
-            <Label className="text-white font-bold text-[12rem] mb-8 leading-none">{ippon}</Label>
+            <Label className="text-white font-bold text-[10vh] mb-8 leading-none">{ippon}</Label>
           </div>
         </div>
       </div>
