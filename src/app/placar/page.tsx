@@ -114,8 +114,8 @@ export default function Placar() {
   }
 
   return (
-    <div className="flex flex-col h-screen bg-gray-950 gap-2 p-2">
-      <>
+    <div className="h-screen w-screen overflow-hidden bg-gray-950 flex flex-col gap-2 p-2">
+      <div className="flex flex-col gap-2 overflow-hidden">
         <Controlador
           nome={nome1}
           cor="red"
@@ -130,28 +130,27 @@ export default function Placar() {
           oponenteId={idCompetidor1}
           finalizado={partidaFinalizada}
         />
-      </>
+      </div>
 
-
-      <div className="flex-[1.5] bg-gray-900 rounded-md border-none flex justify-between items-end">
-        <Card className="w-120 h-28 bg-gray-950 border-none m-4 rounded-md p-0">
-          <CardContent className="grid grid-cols-2 grid-rows-1 w-full h-full p-0">
+      <div className="flex h-[30%] min-h-[180px] bg-gray-900 rounded-md justify-between items-end">
+        <Card className="w-130 h-28 bg-gray-950 border-none m-4 rounded-md p-0">
+          <CardContent className="grid grid-cols-2 w-full h-full p-0">
             <Link href="/dashboard">
-              <Button className="bg-gray-950 w-full h-full rounded-none text-2xl hover:border-white hover:border hover:bg-gray-950 cursor-pointer">
+              <Button className="bg-gray-950 w-full h-full cursor-pointer rounded-none text-2xl hover:border-white hover:border">
                 SAIR
               </Button>
             </Link>
             {exibirBotaoVoltar ? (
               <Button
                 onClick={handleVoltar}
-                className="bg-gray-950 w-full h-full rounded-none text-2xl hover:border-white hover:border hover:bg-gray-950 cursor-pointer"
+                className="bg-gray-950 w-full h-full rounded-none cursor-pointer text-2xl hover:border-white hover:border"
               >
                 VOLTAR
               </Button>
             ) : (
               <Button
                 onClick={handleFinalizarPartida}
-                className="bg-gray-950 w-full h-full rounded-none text-2xl hover:border-white hover:border hover:bg-gray-950 cursor-pointer"
+                className="bg-gray-950 w-full h-full rounded-none cursor-pointer text-2xl hover:border-white hover:border"
               >
                 FINALIZAR PARTIDA
               </Button>
