@@ -114,7 +114,7 @@ export default function Placar() {
   }
 
   return (
-    <div className="min-h-screen w-screen bg-gray-950 flex flex-col p-2 gap-2 overflow-y-auto">
+    <div className="min-h-screen w-screen bg-gray-950 flex flex-col p-2 gap-2 overflow-hidden">
       <div className="flex flex-col gap-2 flex-1">
         <Controlador
           nome={nome1}
