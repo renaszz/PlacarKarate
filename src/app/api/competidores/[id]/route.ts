@@ -8,6 +8,14 @@ export async function PUT(
   const { id } = await params;
   const body = await request.json();
 
+  const competidorAtual = await prisma.competidor.findUnique({
+    where: { id },
+  });
+
+  if (!competidorAtual) {
+    return NextResponse.json({ error: 'Competidor não encontrado' }, { status: 404 });
+  }
+
   const atualizado = await prisma.competidor.update({
     where: { id },
     data: {
@@ -15,7 +23,7 @@ export async function PUT(
       academia: body.academia,
       cidade: body.cidade,
       estado: body.estado,
-      vitorias: body.vitorias,
+      body.vitorias ?? competidorAtual.vitorias,
     },
   });
 
