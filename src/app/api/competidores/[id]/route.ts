@@ -23,7 +23,7 @@ export async function PUT(
       academia: body.academia,
       cidade: body.cidade,
       estado: body.estado,
-      body.vitorias ?? competidorAtual.vitorias,
+      vitorias: body.vitorias ?? competidorAtual.vitorias,
     },
   });
 
