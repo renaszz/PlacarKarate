@@ -90,7 +90,7 @@ export default function ListaPartidas({ initialData }: { initialData: Partida[] 
       cell: ({ getValue }) => {
         const nome = getValue<string>();
         return (
-          <div className="text-center">{nome ? nome : '———'}</div>
+          <div className="text-center">{nome ? nome : '——'}</div>
         );
       },
     },
