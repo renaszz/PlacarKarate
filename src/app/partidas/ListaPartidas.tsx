@@ -73,24 +73,27 @@ export default function ListaPartidas({ initialData }: { initialData: Partida[] 
       },
     },
     {
-    id: 'vencedor',
-    accessorFn: (row) =>
-      row.participantes.find((p) => p.resultado === 'Vencedor')
-        ?.competidor.nome ?? '',
-    header: ({ column }) => (
-      <div
-        className="cursor-pointer text-center text-white font-bold"
-        onClick={() =>
-          column.toggleSorting(column.getIsSorted() === 'asc')
-        }
-      >
-        VENCEDOR
-      </div>
-    ),
-    cell: ({ getValue }) => (
-      <div className="text-center">{getValue<string>()}</div>
-    ),
-  },
+      id: 'vencedor',
+      accessorFn: (row) =>
+        row.participantes.find((p) => p.resultado === 'Vencedor')
+          ?.competidor.nome ?? '',
+      header: ({ column }) => (
+        <div
+          className="cursor-pointer text-center text-white font-bold"
+          onClick={() =>
+            column.toggleSorting(column.getIsSorted() === 'asc')
+          }
+        >
+          VENCEDOR
+        </div>
+      ),
+      cell: ({ getValue }) => {
+        const nome = getValue<string>();
+        return (
+          <div className="text-center">{nome ? nome : '———'}</div>
+        );
+      },
+    },
     {
   accessorKey: 'resultado',
   header: ({ column }) => (
