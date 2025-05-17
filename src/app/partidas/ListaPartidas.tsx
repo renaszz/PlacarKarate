@@ -73,32 +73,42 @@ export default function ListaPartidas({ initialData }: { initialData: Partida[] 
       },
     },
     {
-      accessorKey: 'resultado',
-      header: ({ column }) => (
-        <div
-          className="cursor-pointer text-center text-white font-bold"
-          onClick={() =>
-            column.toggleSorting(column.getIsSorted() === 'asc')
-          }
-        >
-          RESULTADO
-        </div>
-      ),
-      cell: ({ row }) => {
-        const resultado = row.original.resultado.toLowerCase();
-        const vencedor = row.original.participantes.find(
-          (part) => part.resultado.toLowerCase() === 'vitória'
-        )?.competidor.nome;
-
-        return (
-          <div className="text-center">
-            {resultado === 'vitória' && vencedor
-              ? `Vitória de ${vencedor}`
-              : row.getValue('resultado')}
-          </div>
-        );
-      },
-    },
+    id: 'vencedor',
+    accessorFn: (row) =>
+      row.participantes.find((p) => p.resultado === 'Vencedor')
+        ?.competidor.nome ?? '',
+    header: ({ column }) => (
+      <div
+        className="cursor-pointer text-center text-white font-bold"
+        onClick={() =>
+          column.toggleSorting(column.getIsSorted() === 'asc')
+        }
+      >
+        VENCEDOR
+      </div>
+    ),
+    cell: ({ getValue }) => (
+      <div className="text-center">{getValue<string>()}</div>
+    ),
+  },
+    {
+  accessorKey: 'resultado',
+  header: ({ column }) => (
+    <div
+      className="cursor-pointer text-center text-white font-bold"
+      onClick={() =>
+        column.toggleSorting(column.getIsSorted() === 'asc')
+      }
+    >
+      RESULTADO
+    </div>
+  ),
+  cell: ({ getValue }) => (
+    <div className="text-center">
+      {getValue<string>()}
+    </div>
+  ),
+}
     {
       accessorKey: 'data',
       header: ({ column }) => (
