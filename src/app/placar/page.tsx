@@ -10,6 +10,7 @@ import Link from "next/link";
 import { Controlador } from "@/components/Controlador";
 import { Input } from "@/components/ui/input";
 import { ChevronLeft } from "lucide-react";
+import { toast } from "sonner";
 
 interface Competidor {
   id: string;
