@@ -1,9 +1,10 @@
 'use client'
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { Timer } from "@/components/Timer";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { Controlador } from "@/components/Controlador";
@@ -24,6 +25,8 @@ export default function Placar() {
   const [inputTime, setInputTime] = useState(0);
   const [partidaFinalizada, setPartidaFinalizada] = useState(false);
   const [exibirBotaoVoltar, setExibirBotaoVoltar] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     async function fetchCompetidores() {
