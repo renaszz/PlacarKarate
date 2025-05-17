@@ -53,6 +53,29 @@ export default function Placar() {
     setExibirBotaoVoltar(false);
   };
 
+  async function registrarSemVencedor(resultado: string) {
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+    try {
+      const res = await fetch('/api/partida/confronto/semVencedor', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          perdedorIds: [idCompetidor1, idCompetidor2],
+          resultado,
+        }),
+      });
+      if (!res.ok) throw new Error('Erro ao registrar sem vencedor');
+      toast.success(`Sem vencedor registrado: ${resultado}`);
+      setTimeout(() => router.push('/dashboard'), 1500);
+    } catch (error) {
+      console.error(error);
+      toast.error('Falha ao registrar sem vencedor');
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
   const nome1 = competidores.find(c => c.id === idCompetidor1)?.nome || "Competidor 1";
   const nome2 = competidores.find(c => c.id === idCompetidor2)?.nome || "Competidor 2";
 
@@ -154,7 +177,24 @@ export default function Placar() {
             )}
             </CardContent>
           </Card>
-          <Timer initialTime={time} />
+          <div className="flex flex-row gap-4 items-center">
+            {partidaFinalizada && (
+              <Card className="w-80 h-28 bg-gray-950 border-none rounded-md p-0">
+                <CardHeader className="bg-white font-bold rounded-t-md text-2xl flex justify-center">
+                  SEM VENCEDOR:
+                </CardHeader>
+                <CardContent className="grid grid-rows-2 w-full h-full p-0">
+                  <Button disabled={isSubmitting} onClick={() => registrarSemVencedor('DUPLO WO/DSC')} className="w-full h-full text-xl">
+                    DUPLO WO/DSC
+                  </Button>
+                  <Button disabled={isSubmitting} onClick={() => registrarSemVencedor('DUPLO WO EVENTO')} className="w-full h-full text-xl">
+                    DUPLO WO EVENTO
+                  </Button>
+                </CardContent>
+              </Card>
+            )}
+            <Timer initialTime={time} />
+          </div>
         </div>
       </div>
   );
