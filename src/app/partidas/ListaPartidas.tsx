@@ -108,7 +108,7 @@ export default function ListaPartidas({ initialData }: { initialData: Partida[] 
       {getValue<string>()}
     </div>
   ),
-}
+},
     {
       accessorKey: 'data',
       header: ({ column }) => (
