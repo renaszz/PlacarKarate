@@ -2,34 +2,27 @@ import { prisma } from '@/lib/prisma';
 import { NextResponse } from 'next/server';
 
 export async function POST(req: Request) {
-  const body = await req.json();
-  const { vencedorId, perdedorId, empate } = body;
+  const { vencedorId, perdedorId, resultado } = await req.json();
 
   try {
     const novaPartida = await prisma.partida.create({
       data: {
         tipo: "CONFRONTO",
         data: new Date(),
-        resultado: empate ? "Empate" : "Vitória",
+        resultado,
         participantes: {
-          create: empate
-            ? [
-                { competidorId: vencedorId, resultado: "Derrota" },
-                { competidorId: perdedorId, resultado: "Derrota" },
-              ]
-            : [
-                { competidorId: vencedorId, resultado: "Vitória" },
-                { competidorId: perdedorId, resultado: "Derrota" },
-              ],
+          create: [
+            { competidorId: vencedorId, resultado: "Vencedor" },
+            { competidorId: perdedorId, resultado: "Derrota" },
+          ],
         },
       },
     });
-    if (!empate) {
-      await prisma.competidor.update({
-        where: { id: vencedorId },
-        data: { vitorias: { increment: 1 } },
-      });
-    }
+
+    await prisma.competidor.update({
+      where: { id: vencedorId },
+      data: { vitorias: { increment: 1 } },
+    });
 
     return NextResponse.json(novaPartida);
   } catch (error) {
