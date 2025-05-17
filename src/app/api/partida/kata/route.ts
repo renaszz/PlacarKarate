@@ -10,7 +10,7 @@ export async function POST(req: Request) {
   }
 
   const resultadoTexto =
-    notaMedia === 0 ? "Desclassificação" : `Nota: ${notaMedia.toFixed(1)}`;
+    notaMedia === 0 ? "DESCLASSIFICAÇÃO" : `Nota: ${notaMedia.toFixed(1)}`;
 
   try {
     const novaPartida = await prisma.partida.create({
