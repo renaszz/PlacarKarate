@@ -183,15 +183,15 @@ export default function Placar() {
           </Card>
           <div className="flex flex-row gap-4 items-center">
             {partidaFinalizada && (
-              <Card className="w-80 h-28 bg-gray-950 border-none rounded-md p-0">
+              <Card className="w-80 h-28 bg-gray-950 border-none rounded-md p-0 self-center mt-5">
                 <CardHeader className="bg-white font-bold rounded-t-md text-2xl flex justify-center">
                   SEM VENCEDOR:
                 </CardHeader>
                 <CardContent className="grid grid-rows-2 w-full h-full p-0">
-                  <Button disabled={isSubmitting} onClick={() => registrarSemVencedor('DUPLO WO/DSC')} className="w-full h-full text-xl">
+                  <Button disabled={isSubmitting} onClick={() => registrarSemVencedor('DUPLO WO/DSC')} className="bg-gray-950 w-full h-full rounded-none cursor-pointer text-xl border border-transparent hover:border-white">
                     DUPLO WO/DSC
                   </Button>
-                  <Button disabled={isSubmitting} onClick={() => registrarSemVencedor('DUPLO WO EVENTO')} className="w-full h-full text-xl">
+                  <Button disabled={isSubmitting} onClick={() => registrarSemVencedor('DUPLO WO EVENTO')} className="bg-gray-950 w-full h-full rounded-none cursor-pointer text-xl border border-transparent hover:border-white">
                     DUPLO WO EVENTO
                   </Button>
                 </CardContent>
