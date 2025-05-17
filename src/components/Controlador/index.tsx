@@ -30,22 +30,27 @@ export function Controlador({
   const bgMain = cor === "red" ? "bg-red-600" : "bg-blue-700";
   const bgTop = cor === "red" ? "bg-red-400" : "bg-blue-500";
 
-  async function registrarResultado(tipoResultado: string) {
-    if (isSubmitting) return;
+  async function registrarResultado(resultado: string) {
+  if (isSubmitting) return;
+  setIsSubmitting(true);
 
-    setIsSubmitting(true);
-      await fetch("/api/partida/confronto", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          vencedorId: competidorId,
-          perdedorId: oponenteId,
-          resultado: tipoResultado,
-        }),
-      });
-      toast.success(`Resultado registrado: ${tipoResultado}`);
-      setTimeout(() => router.push("/dashboard"), 1500);
-    }
+  const res = await fetch("/api/partida/confronto", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      vencedorId: competidorId,
+      perdedorId: oponenteId,
+      resultado,
+    }),
+  });
+
+  if (!res.ok) {
+    toast.error("Falha ao registrar resultado");
+  } else {
+    toast.success(`Resultado registrado: ${resultado}`);
+    setTimeout(() => router.push("/dashboard"), 1500);
+  }
+}
 
   return (
     <div className="flex-[2] bg-gray-900 rounded-md border-none flex justify-between">
